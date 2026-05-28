@@ -872,6 +872,10 @@
           border-radius: 18px;
         }
 
+        .placeholder-media--employee-card {
+          border-radius: 4px;
+        }
+
         .placeholder-media__image {
           object-position: center top;
         }
@@ -1210,7 +1214,7 @@
             </p>
           </div>
           <picture class="media-switch media-switch--mini">
-            <source media="(max-width: 820px)" srcset="./assets/profile-mini-card-mobile.png?v=20260528-employee-mobile" />
+            <source media="(max-width: 820px)" srcset="./assets/profile-mini-card-mobile.png?v=20260529-employee-mobile-hidpi" />
             <img
               class="media media--shot media--w768"
               src="./assets/profile-mini-card-shot.png"
@@ -1247,7 +1251,7 @@
             <div class="load-indicator-layout">
               <img
                 class="load-indicator-layout__main"
-                src="./assets/profile-load-indicator-shot.png"
+                src="./assets/profile-load-indicator-shot.png?v=20260529-employee-load"
                 alt="Индикатор загруженности в мини-карточке сотрудника"
                 width="606"
                 height="310"
@@ -1264,7 +1268,7 @@
           <div class="load-indicator-layout-mobile">
             <img
               class="load-indicator-layout-mobile__main"
-              src="./assets/profile-load-indicator-mobile-main.png?v=20260528-employee-mobile"
+              src="./assets/profile-load-indicator-mobile-main.png?v=20260529-employee-load-hidpi"
               alt="Индикатор загруженности в мини-карточке сотрудника"
               width="252"
               height="153"
@@ -1304,7 +1308,7 @@
               задачи.
             </p>
           </div>
-          <div class="placeholder-media" aria-label="Боковая панель с профилем сотрудника">
+          <div class="placeholder-media placeholder-media--employee-card" aria-label="Боковая панель с профилем сотрудника">
             <img
               class="placeholder-media__image"
               src="./assets/profile-sidebar-placeholder-shot.svg?v=20260526-1806"
