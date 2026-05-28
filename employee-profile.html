@@ -1,0 +1,1685 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arkady Kuznetsov</title>
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#0f0f0f" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #ffffff;
+      }
+
+      body {
+        min-height: 100vh;
+        color: #0f0f0f;
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+      }
+
+      body.modal-open {
+        overscroll-behavior: none;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .case-page {
+        width: min(100%, 1040px);
+        margin: 0 auto;
+        padding: 32px 24px 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 120px;
+        background: #ffffff;
+      }
+
+      .case-page > :first-child {
+        width: min(100%, 1040px);
+      }
+
+      .case-page > :not(:first-child) {
+        width: min(100%, 768px);
+      }
+
+      .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .brand {
+        color: #0f0f0f;
+        font-family: "Golos Text", sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-decoration: none;
+      }
+
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+
+      .header-link {
+        color: #0f0f0f;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 19.2px;
+        text-decoration: none;
+      }
+
+      .language-toggle {
+        box-sizing: content-box;
+        height: 36px;
+        padding: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f2f2f2;
+        border-radius: 999px;
+        outline: 1px #ddd9d2 solid;
+        outline-offset: -1px;
+      }
+
+      .language-toggle__item {
+        box-sizing: content-box;
+        align-self: stretch;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        color: rgba(15, 15, 15, 0.4);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 16.8px;
+      }
+
+      .language-toggle__item.is-active {
+        background: #ffffff;
+        outline: 1px #e4e1db solid;
+        outline-offset: -1px;
+        color: #0f0f0f;
+      }
+
+      .section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 64px;
+      }
+
+      .section--compact {
+        gap: 32px;
+      }
+
+      .block {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+      }
+
+      .meta-stack,
+      .text-stack,
+      .text-stack--large {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .meta-stack {
+        gap: 12px;
+      }
+
+      .text-stack {
+        gap: 16px;
+      }
+
+      .text-stack--large {
+        gap: 24px;
+      }
+
+      .title {
+        margin: 0;
+        color: #0f0f0f;
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 44px;
+      }
+
+      .section-title {
+        margin: 0;
+        align-self: stretch;
+        color: #0f0f0f;
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 36px;
+      }
+
+      .subheading {
+        margin: 0;
+        align-self: stretch;
+        color: #0f0f0f;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 24px;
+      }
+
+      .subheading--large {
+        font-size: 22px;
+        line-height: 28px;
+      }
+
+      .lead {
+        margin: 0;
+        align-self: stretch;
+        color: #4b5563;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 28px;
+      }
+
+      .body-text {
+        margin: 0;
+        align-self: stretch;
+        color: #4b5563;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 26px;
+      }
+
+      .body-text strong,
+      .bullet-list strong {
+        color: #0f0f0f;
+        font-weight: 600;
+      }
+
+      .case-meta {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #767676;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      .case-meta__dot {
+        color: #9ca3af;
+      }
+
+      .media {
+        align-self: stretch;
+        width: 100%;
+        border-radius: 24px;
+        object-fit: cover;
+        box-shadow: 0 18px 40px rgba(15, 15, 15, 0.08);
+      }
+
+      .media--hero {
+        border-radius: 20px;
+      }
+
+      .media--shot {
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .media--w768 {
+        width: 768px;
+        max-width: 100%;
+        align-self: center;
+      }
+
+      .media--w606 {
+        width: 606px;
+        max-width: 100%;
+        align-self: center;
+      }
+
+      .media--w792 {
+        width: 792px;
+        max-width: 100%;
+        align-self: center;
+      }
+
+      .media-switch {
+        align-self: stretch;
+        display: block;
+        width: 100%;
+      }
+
+      .mobile-media-scroll {
+        width: 100%;
+      }
+
+      .load-indicator-layout {
+        align-self: center;
+        width: 768px;
+        max-width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 606fr) minmax(0, 146fr);
+        align-items: stretch;
+        gap: 16px;
+      }
+
+      .load-indicator-layout__main {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        height: auto;
+      }
+
+      .load-indicator-layout__legend {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        height: auto;
+      }
+
+      .load-indicator-layout-mobile {
+        display: none;
+        align-self: stretch;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+      }
+
+      .load-indicator-layout-mobile__main {
+        display: block;
+      }
+
+      .load-indicator-layout-mobile__legend {
+        display: block;
+      }
+
+      .load-indicator-layout-mobile__legend-image {
+        display: block;
+      }
+
+      .placeholder-media {
+        align-self: stretch;
+        width: 768px;
+        max-width: 100%;
+        height: 432px;
+        position: relative;
+        overflow: hidden;
+        background: #d9d9d9;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        outline: 1px solid rgba(227, 227, 227, 0.2);
+        outline-offset: -1px;
+        margin: 0 auto;
+      }
+
+      .placeholder-media__image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .inline-link {
+        color: #2563eb;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .inline-image-trigger {
+        color: #2563eb;
+        text-decoration: none;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        line-height: inherit;
+        transition: color 160ms ease;
+        cursor: pointer;
+      }
+
+      .inline-image-trigger:hover,
+      .inline-image-trigger:focus-visible {
+        color: #123ea8;
+        outline: none;
+      }
+
+      .image-modal {
+        position: fixed;
+        inset: 0;
+        padding: 24px;
+        background: rgba(15, 15, 15, 0.76);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease;
+        z-index: 1000;
+      }
+
+      .image-modal.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .image-modal__dialog {
+        position: relative;
+        width: fit-content;
+        height: fit-content;
+        max-width: calc(100vw - 48px);
+        max-height: calc(100vh - 48px);
+        padding: 28px;
+        border-radius: 28px;
+        background: #f3f7fb;
+        box-shadow: 0 28px 80px rgba(15, 15, 15, 0.28);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .image-modal__image {
+        width: auto;
+        height: auto;
+        max-width: calc(100vw - 152px);
+        max-height: calc(100vh - 152px);
+        object-fit: contain;
+        display: block;
+        border-radius: 20px;
+        background: transparent;
+      }
+
+      .image-modal__close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 40px;
+        height: 40px;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(15, 15, 15, 0.82);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .image-modal__close svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+      }
+
+      .bullet-list {
+        margin: 0;
+        padding-left: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        color: #4b5563;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 26px;
+      }
+
+      .bullet-list li::marker {
+        color: #64748b;
+      }
+
+      .detail-grid {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .detail-row {
+        align-self: stretch;
+        display: grid;
+        grid-template-columns: 393px minmax(0, 1fr);
+        gap: 32px;
+        align-items: center;
+      }
+
+      .detail-card-frame {
+        position: relative;
+        width: 393px;
+        max-width: 100%;
+        flex: none;
+        border-radius: 18px;
+        overflow: hidden;
+        aspect-ratio: var(--detail-card-ratio, 393 / 184);
+      }
+
+      .detail-card-frame::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        background: var(--detail-card-overlay, none);
+      }
+
+      .detail-card-frame--contacts {
+        --detail-card-ratio: 393 / 184;
+        --detail-card-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #ffffff 98%);
+      }
+
+      .detail-card-frame--active-tasks {
+        --detail-card-ratio: 393 / 316;
+        --detail-card-overlay: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 8%), linear-gradient(180deg, rgba(255, 255, 255, 0) 89%, #ffffff 98%);
+      }
+
+      .detail-card-frame--projects {
+        --detail-card-ratio: 393 / 268;
+        --detail-card-overlay: linear-gradient(180deg, #ffffff 3%, rgba(255, 255, 255, 0) 8%), linear-gradient(180deg, rgba(255, 255, 255, 0) 93%, #ffffff 98%);
+      }
+
+      .detail-card-frame--skills {
+        --detail-card-ratio: 393 / 202;
+        --detail-card-overlay: linear-gradient(180deg, #ffffff 5%, rgba(255, 255, 255, 0) 9%), linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, #ffffff 95%);
+      }
+
+      .detail-card-frame--achievements {
+        --detail-card-ratio: 393 / 228;
+        --detail-card-overlay: linear-gradient(180deg, #ffffff 2%, rgba(255, 255, 255, 0) 7%), linear-gradient(180deg, rgba(255, 255, 255, 0) 91%, #ffffff 96%);
+      }
+
+      .detail-card-frame--history {
+        --detail-card-ratio: 393 / 182;
+        --detail-card-overlay: linear-gradient(180deg, #ffffff 5%, rgba(255, 255, 255, 0) 11%);
+      }
+
+      .detail-card {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+      }
+
+      .detail-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .detail-copy .subheading {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 26px;
+      }
+
+      .detail-copy .body-text {
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .case-pagination {
+        width: min(100%, 766px) !important;
+        max-width: 100%;
+        align-self: center !important;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .case-pagination__label-row {
+        align-self: flex-end;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .case-pagination__label {
+        color: #767676;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+      }
+
+      .case-pagination__label-icon {
+        width: 18px;
+        height: 18px;
+        display: block;
+        color: #767676;
+      }
+
+      .case-pagination__link {
+        width: 100%;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 19px;
+        border-radius: 24px;
+        background: #f2f2f2;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .case-pagination__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .case-pagination__copy {
+        width: 660px;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+
+      .case-pagination__title {
+        margin: 0;
+        color: #0f0f0f;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 28.8px;
+      }
+
+      .case-pagination__meta {
+        flex: 0 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .case-pagination__pill {
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.06);
+        color: #334155;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      .case-pagination__description {
+        margin: 0;
+        width: 620px;
+        max-width: 100%;
+        color: #4b5563;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 26px;
+      }
+
+      .project-card-break--mobile {
+        display: none;
+      }
+
+      .project-card-text--mobile {
+        display: none;
+      }
+
+      .case-pagination__title + .case-pagination__description {
+        margin-top: 12px;
+      }
+
+      .case-pagination__label-row {
+        display: none;
+      }
+
+      .case-pagination__link {
+        box-sizing: border-box;
+        position: relative;
+        padding: 24px 72px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        border-radius: 12px;
+        background: #f2f2f2;
+        border: 1px solid rgba(15, 23, 42, 0.06);
+        color: inherit;
+        text-decoration: none;
+        transition:
+          background-color 160ms ease,
+          border-color 160ms ease;
+      }
+
+      .case-pagination__link:hover,
+      .case-pagination__link:focus-visible {
+        background: #efefef;
+        border-color: rgba(15, 23, 42, 0.1);
+      }
+
+      .case-pagination__label {
+        color: #767676;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      .case-pagination__arrow {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        width: 24px;
+        height: 24px;
+        color: #0f0f0f;
+      }
+
+      .case-pagination__copy {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .case-pagination__title {
+        color: #0f0f0f;
+        line-height: 32px;
+      }
+
+      .case-pagination__meta {
+        width: 100%;
+        gap: 8px;
+      }
+
+      .case-pagination__pill {
+        padding: 4px 12px;
+        background: rgba(15, 23, 42, 0.06);
+        color: #334155;
+      }
+
+      .case-pagination__description {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        color: #4b5563;
+      }
+
+      @media (max-width: 980px) {
+        .case-page {
+          gap: 88px;
+          padding: 32px 16px 48px;
+        }
+
+        .case-page > :first-child,
+        .case-page > :not(:first-child) {
+          width: 100%;
+        }
+
+        .site-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .header-nav {
+          width: 100%;
+          justify-content: space-between;
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+
+        .title {
+          font-size: 28px;
+          line-height: 38px;
+        }
+
+        .section-title {
+          font-size: 24px;
+          line-height: 32px;
+        }
+
+        .detail-row,
+        .case-pagination__header {
+          grid-template-columns: 1fr;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 16px;
+        }
+
+        .detail-card-frame,
+        .detail-card,
+        .case-pagination__copy,
+        .case-pagination__description {
+          width: 100%;
+        }
+
+        .case-pagination__meta {
+          justify-content: flex-start;
+        }
+
+        .image-modal {
+          padding: 16px;
+        }
+
+        .image-modal__dialog {
+          max-width: calc(100vw - 32px);
+          max-height: calc(100vh - 32px);
+          padding: 24px;
+          border-radius: 22px;
+        }
+
+        .image-modal__image {
+          max-width: calc(100vw - 72px);
+          max-height: calc(100vh - 72px);
+        }
+
+        .image-modal__close {
+          top: 8px;
+          right: 8px;
+        }
+      }
+
+      @media (max-width: 820px) {
+        .case-page {
+          gap: 56px;
+          padding: 32px 16px 44px;
+        }
+
+        .section {
+          gap: 40px;
+        }
+
+        .section--compact {
+          gap: 24px;
+        }
+
+        .block {
+          gap: 20px;
+        }
+
+        .meta-stack {
+          gap: 10px;
+        }
+
+        .text-stack--large {
+          gap: 16px;
+        }
+
+        .title {
+          font-size: 24px;
+          line-height: 32px;
+        }
+
+        .section-title {
+          font-size: 22px;
+          line-height: 28px;
+        }
+
+        .subheading--large {
+          font-size: 20px;
+          line-height: 26px;
+        }
+
+        .lead {
+          font-size: 16px;
+          line-height: 26px;
+        }
+
+        .case-meta {
+          min-height: 0;
+          height: auto;
+          flex-wrap: wrap;
+          row-gap: 8px;
+        }
+
+        .media {
+          border-radius: 18px;
+        }
+
+        .placeholder-media {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 2866 / 1612;
+          border-radius: 18px;
+        }
+
+        .placeholder-media__image {
+          object-position: center top;
+        }
+
+        .media--w768,
+        .media--w606,
+        .media--w792 {
+          width: 100%;
+          align-self: stretch;
+        }
+
+        .mobile-media-scroll {
+          align-self: stretch;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          overflow: visible;
+        }
+
+        .mobile-media-scroll--research {
+          width: calc(100% + 8px);
+          margin: 0 -4px;
+        }
+
+        .mobile-media-scroll--research .media-switch {
+          display: block;
+          width: min(366px, calc(100vw - 8px));
+          max-width: none;
+        }
+
+        .mobile-media-scroll--research .mobile-media-scroll__asset {
+          display: block;
+          width: min(366px, calc(100vw - 8px));
+          height: auto;
+          max-width: none;
+          align-self: stretch;
+          border-radius: 12px;
+          outline: 1px rgba(227, 227, 227, 0.20) solid;
+          outline-offset: -1px;
+        }
+
+        .media-switch--mini {
+          display: block;
+          width: calc(100% + 8px);
+          margin: 0 -4px;
+        }
+
+        .media-switch--mini .media {
+          display: block;
+          width: min(366px, calc(100vw - 8px));
+          height: 180px;
+          max-width: none;
+          object-fit: cover;
+          border-radius: 12px;
+          border: 1px rgba(227, 227, 227, 0.20) solid;
+          box-sizing: border-box;
+        }
+
+        .mobile-media-scroll--load {
+          display: none;
+        }
+
+        .load-indicator-layout-mobile {
+          --mobile-load-width: min(366px, calc(100vw - 8px));
+          --mobile-load-main-width: calc(var(--mobile-load-width) * 252 / 366);
+          --mobile-load-legend-width: calc(var(--mobile-load-width) * 102 / 366);
+          --mobile-load-gap: calc(var(--mobile-load-width) * 12 / 366);
+          display: grid;
+          grid-template-columns: var(--mobile-load-main-width) var(--mobile-load-legend-width);
+          gap: var(--mobile-load-gap);
+          align-items: stretch;
+          width: var(--mobile-load-width);
+          max-width: none;
+          margin: 0 -4px;
+        }
+
+        .load-indicator-layout-mobile__main {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 252 / 153;
+          object-fit: cover;
+          border-radius: 12px;
+          border: 1px rgba(227, 227, 227, 0.20) solid;
+          box-sizing: border-box;
+        }
+
+        .load-indicator-layout-mobile__legend {
+          width: 100%;
+          aspect-ratio: 102 / 153;
+          overflow: hidden;
+          border-radius: 12px;
+        }
+
+        .load-indicator-layout-mobile__legend-image {
+          width: var(--mobile-load-width);
+          max-width: none;
+          height: auto;
+          transform: translateX(calc(var(--mobile-load-width) * -264 / 366));
+        }
+
+        .bullet-list {
+          padding-left: 20px;
+        }
+
+        .detail-grid {
+          gap: 32px;
+        }
+
+        .detail-row {
+          flex-direction: column-reverse;
+          gap: 12px;
+        }
+
+        .detail-card-frame {
+          border-radius: 14px;
+        }
+
+        .case-pagination {
+          width: 100% !important;
+        }
+
+        .case-pagination__link {
+          padding: 20px 24px 20px 20px;
+          gap: 14px;
+        }
+
+        .case-pagination__arrow {
+          top: 20px;
+          right: 20px;
+        }
+
+        .case-pagination__title {
+          font-size: 20px;
+          line-height: 26px;
+        }
+
+        .case-pagination__description br {
+          display: none;
+        }
+
+        .case-pagination__description .project-card-break {
+          display: block;
+        }
+
+        .project-card-text--desktop {
+          display: none;
+        }
+
+        .project-card-text--mobile {
+          display: inline;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="./scrollbar.css?v=20260528-mobile" />
+    <link rel="stylesheet" href="./back-to-top.css?v=20260527-1323" />
+    <link rel="stylesheet" href="./footer-note.css?v=20260527-1331" />
+    <link rel="stylesheet" href="./language-toggle.css?v=20260528-hover2" />
+    <link rel="stylesheet" href="./site-header.css?v=20260528-menu3" />
+    </head>
+  <body>
+    <main class="case-page">
+      <header class="site-header">
+  <a class="brand" href="./index.html">kuznetsov.a</a>
+  <nav class="header-nav" aria-label="Основная навигация">
+    <div class="header-nav__links">
+    <a class="header-link" href="https://t.me/kuznetsou_a" aria-label="Telegram" target="_blank" rel="noopener noreferrer">Telegram</a>
+    <a class="header-link" href="mailto:kuznetsouad@gmail.com" aria-label="Email">Email</a>
+    <a class="header-link" href="./assets/cv-ru.pdf" aria-label="CV" download="CV Кузнецов Аркадий - продуктовый дизайнер.pdf">CV</a>
+    </div>
+    <div class="header-nav__controls">
+    <div class="language-toggle" aria-label="Переключение языка">
+      <a class="language-toggle__item is-active" href="./employee-profile.html" hreflang="ru" lang="ru" aria-current="page">RU</a>
+      <a class="language-toggle__item" href="./employee-profile-en.html" hreflang="en" lang="en">EN</a>
+    </div>
+    </div>
+  </nav>
+</header>
+
+      <section class="section">
+        <div class="block">
+          <div class="meta-stack">
+            <h1 class="title">Профиль сотрудника внутри системы</h1>
+            <div class="case-meta">
+              <span>Product Designer</span>
+              <span class="case-meta__dot">•</span>
+              <span>B2B</span>
+              <span class="case-meta__dot">•</span>
+              <span>2025</span>
+            </div>
+          </div>
+          <p class="lead">
+            Спроектировал карточку сотрудника как часть рабочей среды цифровой
+            платформы: от быстрого просмотра контактов до полного профиля с
+            задачами, проектами, навыками, достижениями и историей работы.
+          </p>
+        </div>
+
+        <div class="placeholder-media" aria-label="Превью кейса Профиль сотрудника внутри системы">
+          <img
+            class="placeholder-media__image"
+            src="./assets/profile-top-placeholder-shot.svg?v=20260526-1729"
+            alt="Превью кейса Профиль сотрудника внутри системы"
+            width="2866"
+            height="1612"
+          />
+        </div>
+      </section>
+
+      <section class="section section--compact">
+        <div class="block">
+          <h2 class="section-title">Задача</h2>
+          <div class="text-stack--large">
+            <p class="body-text">
+              Формально
+              <button
+                class="inline-image-trigger"
+                type="button"
+                data-image-modal-trigger
+                data-modal-src="./assets/profile-test-task-overlay.png"
+                data-modal-alt="Превью технического задания"
+              >
+                  техническое задание
+              </button>
+              требовало лишь базовый UI-компонент карточки сотрудника. Но я
+              отказался от изолированного дизайна, так как он не позволяет
+              полностью поставить себя на место пользователя. Вместо этого я
+              спроектировал контекст — саму цифровую платформу. Это позволило
+              прожить реальные сценарии взаимодействия и встроить карточку в
+              живую рабочую среду
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="block">
+          <h2 class="section-title">Исследование</h2>
+          <div class="text-stack">
+            <p class="body-text">
+              Мне было важно понять, как в таких сервисах связана карточка человека и рабочий процесс:<br />
+              где отображаются сотрудники, как быстро считываются данные, что показано сразу,<br />
+              а что скрыто глубже. Поэтому я провёл анализ конкурентов, чтобы выявить плюсы и минусы<br />
+              их интерфейсов.
+            </p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="text-stack">
+            <h3 class="subheading subheading--large">Анализ конкурентов</h3>
+            <p class="body-text">
+              Я хотел понять две вещи: как похожие продукты работают с
+              карточками сотрудников и какая информация действительно нужна
+              пользователям в рабочем сценарии.
+            </p>
+          </div>
+          <div class="mobile-media-scroll mobile-media-scroll--research">
+            <picture class="media-switch">
+              <source media="(max-width: 820px)" srcset="./assets/profile-research-mobile.png?v=20260528-employee-mobile" />
+              <img
+                class="media media--shot media--w768 mobile-media-scroll__asset"
+                src="./assets/profile-research-shot.png"
+                alt="Анализ конкурентов для карточки сотрудника"
+                width="768"
+                height="391"
+              />
+            </picture>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="text-stack">
+            <h3 class="subheading">Вывод</h3>
+            <p class="body-text">
+              У существующих продуктов есть сильные стороны — современный UI, чистый интерфейс<br />
+              и понятная визуальная иерархия. Но везде была одна и та же проблема. В одних сервисах<br />
+              при наведении показывается только имя. В других — можно увидеть контакты,<br />
+              но за подробностями всё равно приходится переходить на отдельную страницу. Из-за этого<br />
+              пользователь теряет рабочий контекст и вынужден уходить из задачи.
+            </p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="text-stack">
+            <h3 class="subheading subheading--large">Пользователи</h3>
+            <p class="body-text">
+              Я проанализировал, какие задачи пользователи разных ролей хотят решать с помощью<br />
+              карточки:
+            </p>
+            <ul class="bullet-list">
+              <li>
+                <strong>Менеджерам</strong> — важно видеть, кто занят задачей, какова загрузка сотрудника<br />
+                и готов ли он взять новую работу.
+              </li>
+              <li>
+                <strong>Разработчикам</strong> — нужно быстро найти контакты коллеги и понять по статусу,<br />
+                можно ли ему сейчас написать.
+              </li>
+              <li>
+                <strong>PM или тимлидам</strong> — необходимо контролировать текущие задачи, проекты и контекст<br />
+                работы сотрудника.
+              </li>
+              <li>
+                <strong>HR</strong> — интересны навыки, компетенции, достижения и история роста человека в компании.
+              </li>
+              <li>
+                <strong>Бухгалтерии или договорному отделу</strong> — важен быстрый доступ к ответственным лицам<br />
+                и их контактам.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="text-stack">
+            <h3 class="subheading subheading--large">Итог</h3>
+            <p class="body-text">
+              В итоге я понял, что интерфейс должен закрывать
+              <strong>два сценария</strong>: быстрый просмотр базовых данных и
+              подробное изучение профиля.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="block">
+          <h2 class="section-title">Мини-карточка сотрудника</h2>
+          <div class="text-stack">
+            <p class="body-text">
+              Карточка появляется при наведении на аватар коллеги в карточке задачи. Этот сценарий<br />
+              закрывает быстрые запросы, когда открывать полный профиль не нужно, но важно сразу<br />
+              увидеть: кто это, какая у него должность, как с ним связаться, какова его загрузка<br />
+              и стоит ли отвлекать человека прямо сейчас.
+            </p>
+          </div>
+          <picture class="media-switch media-switch--mini">
+            <source media="(max-width: 820px)" srcset="./assets/profile-mini-card-mobile.png?v=20260528-employee-mobile" />
+            <img
+              class="media media--shot media--w768"
+              src="./assets/profile-mini-card-shot.png"
+              alt="Мини-карточка сотрудника в рабочем интерфейсе"
+              width="768"
+              height="310"
+            />
+          </picture>
+        </div>
+
+        <div class="block">
+          <div class="text-stack">
+            <h3 class="subheading">Поведение мини-карточки</h3>
+            <p class="body-text">
+              Важно было сделать так, чтобы всплывающее окно не мешало работать с доской. Поэтому<br />
+              я разделил логику на два сценария. Если пользователю нужно просто посмотреть<br />
+              информацию — карточка появляется по наведению на аватар и сама исчезает, когда уводишь<br />
+              курсор. Если же он хочет повзаимодействовать с интерфейсом (нажать кнопку, скопировать<br />
+              контакты) — он кликает на аватар, закрепляя её мини-карточку на экране.
+            </p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="text-stack">
+            <h3 class="subheading">Индикатор загруженности</h3>
+            <p class="body-text">
+              В мини-карточку я добавил дополнительную фичу — индикатор загруженности сотрудника.<br />
+              Я пришёл к этому решению, потому что в рабочем сценарии пользователю часто важно понять<br />
+              не только кто перед ним, но и насколько человек сейчас занят.
+            </p>
+          </div>
+          <div class="mobile-media-scroll mobile-media-scroll--load">
+            <div class="load-indicator-layout">
+              <img
+                class="load-indicator-layout__main"
+                src="./assets/profile-load-indicator-shot.png"
+                alt="Индикатор загруженности в мини-карточке сотрудника"
+                width="606"
+                height="310"
+              />
+              <img
+                class="load-indicator-layout__legend"
+                src="./assets/profile-load-legend-ref.png"
+                alt="Шкала уровней загруженности"
+                width="146"
+                height="310"
+              />
+            </div>
+          </div>
+          <div class="load-indicator-layout-mobile">
+            <img
+              class="load-indicator-layout-mobile__main"
+              src="./assets/profile-load-indicator-mobile-main.png?v=20260528-employee-mobile"
+              alt="Индикатор загруженности в мини-карточке сотрудника"
+              width="252"
+              height="153"
+            />
+            <div class="load-indicator-layout-mobile__legend">
+              <img
+                class="load-indicator-layout-mobile__legend-image"
+                src="./assets/profile-load-indicator-mobile.svg?v=20260528-employee-mobile"
+                alt="Шкала уровней загруженности"
+                width="366"
+                height="153"
+              />
+            </div>
+          </div>
+          <div class="text-stack">
+            <p class="body-text">
+              Добавил подсказку в тултип, так как данную фичу не встречал у
+              конкурентов и не всем пользователям будет понятно что это
+              обозначает.
+            </p>
+            <p class="body-text">
+              Это простое решение избавляет от необходимости лишний раз
+              открывать полный профиль сотрудника.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="block">
+          <h2 class="section-title">Карточка сотрудника</h2>
+          <div class="text-stack">
+            <p class="body-text">
+              Я выбрал формат боковой панели, а не отдельной страницы, чтобы пользователь не терял<br />
+              фокус. Сайдбар работает как вспомогательный слой поверх основной области —<br />
+              это позволяет изучить профиль коллеги и при этом оставаться в контексте своей текущей<br />
+              задачи.
+            </p>
+          </div>
+          <div class="placeholder-media" aria-label="Боковая панель с профилем сотрудника">
+            <img
+              class="placeholder-media__image"
+              src="./assets/profile-sidebar-placeholder-shot.svg?v=20260526-1806"
+              alt="Боковая панель с профилем сотрудника"
+              width="2866"
+              height="1604"
+            />
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="text-stack">
+            <p class="body-text">
+              Карточка спроектирована по принципу иерархии. Наверху находятся быстрые данные,<br />
+              которые нужны большинству пользователей. Ниже — расширенная информация, аналитика<br />
+              задач и история развития сотрудника.
+            </p>
+          </div>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-row">
+            <div class="detail-card-frame detail-card-frame--contacts">
+              <img
+                class="detail-card"
+                src="./assets/profile-contacts-ref.png?v=20260527-2254"
+                alt="Блок контактов сотрудника"
+                width="393"
+                height="184"
+              />
+            </div>
+            <div class="detail-copy">
+              <h3 class="subheading">Контакты</h3>
+              <p class="body-text">
+                Пользователь может сразу найти телефон, почту, рабочее время
+                или местоположение сотрудника.
+              </p>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-card-frame detail-card-frame--active-tasks">
+              <img
+                class="detail-card"
+                src="./assets/profile-active-tasks-ref.png?v=20260527-2254"
+                alt="Блок активных задач сотрудника"
+                width="393"
+                height="316"
+              />
+            </div>
+            <div class="detail-copy">
+              <h3 class="subheading">Активные задачи</h3>
+              <p class="body-text">
+                Блок для оценки загрузки: какие задачи сейчас в работе, их
+                сложность, приоритеты и к каким проектам они относятся.
+              </p>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-card-frame detail-card-frame--projects">
+              <img
+                class="detail-card"
+                src="./assets/profile-projects-ref.png?v=20260527-2254"
+                alt="Блок проектов сотрудника"
+                width="393"
+                height="268"
+              />
+            </div>
+            <div class="detail-copy">
+              <h3 class="subheading">Проекты</h3>
+              <p class="body-text">
+                Дать представление о том, какие проекты ведёт сотрудник и на
+                сколько они завершены.
+              </p>
+            </div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-card-frame detail-card-frame--skills">
+              <img
+                class="detail-card"
+                src="./assets/profile-skills-ref.png?v=20260527-2254"
+                alt="Блок навыков и компетенций сотрудника"
+                width="393"
+                height="202"
+              />
+            </div>
+            <div class="detail-copy">
+              <h3 class="subheading">Навыки и компетенции</h3>
+              <p class="body-text">
+                Этот блок особенно полезен для HR, руководителей и менеджеров,
+                когда нужно понять, подходит ли сотрудник под конкретную задачу
+                или проект.
+              </p>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-card-frame detail-card-frame--achievements">
+              <img
+                class="detail-card"
+                src="./assets/profile-achievements-ref.png?v=20260527-2254"
+                alt="Блок достижений сотрудника"
+                width="393"
+                height="228"
+              />
+            </div>
+            <div class="detail-copy">
+              <h3 class="subheading">Достижения</h3>
+              <p class="body-text">
+                Создал визуальный блок достижений в формате некой геймификации,
+                который помогает быстро понять ключевые успехи сотрудника.
+              </p>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-card-frame detail-card-frame--history">
+              <img
+                class="detail-card"
+                src="./assets/profile-history-ref.png?v=20260527-2254"
+                alt="Блок истории сотрудника"
+                width="393"
+                height="182"
+              />
+            </div>
+            <div class="detail-copy">
+              <h3 class="subheading">История</h3>
+              <p class="body-text">
+                Этот блок полезен HR, руководителям или новым участникам команды,
+                которым важно понять путь сотрудника, его рост и участие
+                в&nbsp;важных событиях.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="block">
+          <h2 class="section-title">Итог</h2>
+          <div class="text-stack">
+            <p class="body-text">
+              Вместо отдельного экрана я спроектировал сквозной инструмент,
+              который подстраивается под потребности разных ролей в продукте.
+              Разделение на мини-карточку и боковую панель позволило упаковать
+              максимум полезных данных без перегруза интерфейса и лишних
+              переходов.
+            </p>
+            <p class="body-text">
+              В итоге получился не просто UI-компонент, а готовый системный
+              паттерн для корпоративной среды, который экономит время сотрудников
+              и легко масштабируется под новые типы данных.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-pagination" aria-label="&#1053;&#1072;&#1074;&#1080;&#1075;&#1072;&#1094;&#1080;&#1103; &#1087;&#1086; &#1082;&#1077;&#1081;&#1089;&#1072;&#1084;">
+        <a
+          class="case-pagination__link"
+          href="./vaiti.html"
+          aria-label="&#1057;&#1083;&#1077;&#1076;&#1091;&#1102;&#1097;&#1080;&#1081; &#1082;&#1077;&#1081;&#1089;: &#1042;&#1040;&#1049;&#1058;&#1048;"
+          style="padding-right: 24px;"
+        >
+          <div class="case-pagination__label">&#1057;&#1083;&#1077;&#1076;&#1091;&#1102;&#1097;&#1080;&#1081; &#1082;&#1077;&#1081;&#1089;</div>
+          <svg class="case-pagination__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6.75 12H17.25" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+            <path d="M12.75 7.5L17.25 12L12.75 16.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div class="case-pagination__copy" style="width: 732px;">
+            <h2 class="case-pagination__title">&#1042;&#1040;&#1049;&#1058;&#1048;</h2>
+            <div class="case-pagination__meta" aria-hidden="true">
+              <span class="case-pagination__pill">&#1057;&#1090;&#1072;&#1088;&#1090;&#1072;&#1087;</span>
+              <span class="case-pagination__pill">2026</span>
+            </div>
+          </div>
+          <p class="case-pagination__description" style="width: 732px;"><span class="project-card-text--desktop">Job-tech платформа для поиска работы и подготовки к трудоустройству в IT.<br />С нуля реализовал ключевые сценарии, интерфейсы и визуальную систему продукта.</span><span class="project-card-text--mobile">Job-tech платформа для поиска работы в IT.<br class="project-card-break" />С нуля реализовал ключевые сценарии,<br class="project-card-break project-card-break--mobile" />интерфейсы и визуальную систему продукта.</span></p>
+        </a>
+      </section>
+
+    </main>
+    <div class="image-modal" data-image-modal aria-hidden="true">
+      <div class="image-modal__dialog" role="dialog" aria-modal="true" aria-label="Превью технического задания">
+        <button type="button" class="image-modal__close" data-image-modal-close aria-label="Закрыть">
+          <svg viewBox="0 0 20 20" aria-hidden="true" fill="none">
+            <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <img class="image-modal__image" data-image-modal-image src="./assets/profile-test-task-overlay.png" alt="Превью технического задания" />
+      </div>
+    </div>
+    <script>
+      (function () {
+        const mobileQuery = window.matchMedia("(max-width: 820px)");
+        let typographyApplied = false;
+
+        function applyMobileTypography() {
+          if (typographyApplied || !mobileQuery.matches) {
+            return;
+          }
+
+          const root = document.querySelector(".case-page");
+
+          if (!root) {
+            return;
+          }
+
+          typographyApplied = true;
+
+          document.querySelectorAll(".case-page br").forEach(function (node) {
+            node.replaceWith(document.createTextNode(" "));
+          });
+
+          const excludedSelector = ".site-header, .language-toggle, .header-nav, .brand, .image-modal";
+          const gluedWords = [
+            // Короткие предлоги
+            "а", "в", "во", "и", "к", "ко", "о", "об", "от", "до", "за", "из", "у", "с", "со", "на", "по",
+            // Частицы
+            "не", "ни", "но", "же", "бы", "то", "что",
+            // Союзы и связки
+            "как", "так", "из-за",
+            // Местоимения короткие
+            "я", "он", "она", "оно", "они", "мы", "ты", "вы",
+            // Притяжательные короткие
+            "его", "её", "ее", "им", "их"
+          ];
+          const escapedWords = gluedWords
+            .slice()
+            .sort(function (first, second) {
+              return second.length - first.length;
+            })
+            .map(function (word) {
+              return word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            });
+          const gluedPattern = new RegExp("(^|[\\s([{\\u0022\\u00AB])(" + escapedWords.join("|") + ")\\s+(?=\\S)", "giu");
+          const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+            acceptNode: function (node) {
+              const parent = node.parentElement;
+
+              if (!parent || parent.closest(excludedSelector) || parent.closest("script, style")) {
+                return NodeFilter.FILTER_REJECT;
+              }
+
+              if (!node.nodeValue || !node.nodeValue.trim()) {
+                return NodeFilter.FILTER_REJECT;
+              }
+
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          });
+          const textNodes = [];
+
+          while (walker.nextNode()) {
+            textNodes.push(walker.currentNode);
+          }
+
+          textNodes.forEach(function (node) {
+            let previousValue = node.nodeValue;
+            let nextValue = previousValue.replace(gluedPattern, function (_, prefix, word) {
+              return prefix + word + "\u00A0";
+            });
+
+            while (nextValue !== previousValue) {
+              previousValue = nextValue;
+              nextValue = previousValue.replace(gluedPattern, function (_, prefix, word) {
+                return prefix + word + "\u00A0";
+              });
+            }
+
+            node.nodeValue = nextValue;
+          });
+        }
+
+        applyMobileTypography();
+
+        if (mobileQuery.addEventListener) {
+          mobileQuery.addEventListener("change", applyMobileTypography);
+        } else {
+          mobileQuery.addListener(applyMobileTypography);
+        }
+      }());
+    </script>
+    <script>
+      (function () {
+        const modal = document.querySelector("[data-image-modal]");
+
+        if (!modal) {
+          return;
+        }
+
+        const modalImage = modal.querySelector("[data-image-modal-image]");
+        const closeButton = modal.querySelector("[data-image-modal-close]");
+        const triggers = document.querySelectorAll("[data-image-modal-trigger]");
+        const blockedScrollKeys = new Set([" ", "Spacebar", "ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"]);
+        let lastFocusedElement = null;
+
+        function preventBackgroundScroll(event) {
+          if (!modal.classList.contains("is-open")) {
+            return;
+          }
+
+          event.preventDefault();
+        }
+
+        function openModal(src, alt) {
+          lastFocusedElement = document.activeElement;
+          modalImage.src = src;
+          modalImage.alt = alt;
+          modal.classList.add("is-open");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.classList.add("modal-open");
+          closeButton.focus();
+        }
+
+        function closeModal() {
+          modal.classList.remove("is-open");
+          modal.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("modal-open");
+
+          if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+            lastFocusedElement.focus();
+          }
+        }
+
+        triggers.forEach(function (trigger) {
+          trigger.addEventListener("click", function () {
+            openModal(trigger.dataset.modalSrc, trigger.dataset.modalAlt || "Изображение");
+          });
+        });
+
+        closeButton.addEventListener("click", closeModal);
+
+        modal.addEventListener("click", function (event) {
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+
+        modal.addEventListener("wheel", preventBackgroundScroll, { passive: false });
+        modal.addEventListener("touchmove", preventBackgroundScroll, { passive: false });
+
+        window.addEventListener("keydown", function (event) {
+          if (!modal.classList.contains("is-open")) {
+            return;
+          }
+
+          if (event.key === "Escape") {
+            event.preventDefault();
+            closeModal();
+            return;
+          }
+
+          if (blockedScrollKeys.has(event.key)) {
+            event.preventDefault();
+          }
+        });
+      }());
+    </script>
+    <footer class="site-footer-note" aria-label="Информация о создании сайта">
+      <span class="site-footer-note__line">Сделано с помощью Figma, Claude и вайбкодинга</span>
+      <span class="site-footer-note__line">© 2026 kuznetsov.a</span>
+    </footer>
+    <script src="./site-header.js?v=20260528-menu"></script>
+    <script src="./contact-links.js?v=20260528-email-copy"></script>
+    <script src="./scrollbar.js?v=20260526-2117"></script>
+    <script src="./back-to-top.js?v=20260527-1242"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+

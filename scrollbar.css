@@ -1,0 +1,55 @@
+html.has-custom-scrollbar,
+html.has-custom-scrollbar body {
+  scrollbar-width: none;
+}
+
+html.has-custom-scrollbar::-webkit-scrollbar,
+html.has-custom-scrollbar body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.site-scrollbar {
+  position: fixed;
+  top: 12px;
+  right: 2px;
+  bottom: 12px;
+  width: 6px;
+  z-index: 2147483646;
+  opacity: 1;
+  transition: opacity 160ms ease;
+}
+
+body.modal-open .site-scrollbar {
+  z-index: 90;
+  pointer-events: none;
+}
+
+.site-scrollbar.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-scrollbar__thumb {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 6px;
+  min-height: 40px;
+  border-radius: 999px;
+  background-color: #c0c0c8;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.site-scrollbar__thumb:hover,
+.site-scrollbar.is-dragging .site-scrollbar__thumb {
+  background-color: #8a8a98;
+}
+
+@media (max-width: 820px) {
+  .site-scrollbar {
+    display: none;
+  }
+}

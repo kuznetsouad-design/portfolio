@@ -1,0 +1,50 @@
+.language-toggle {
+  background: #f2f2f2;
+  box-shadow: none;
+  backdrop-filter: none;
+  transition: none;
+  isolation: isolate;
+}
+
+.language-toggle:hover,
+.language-toggle:focus-within {
+  background: #f2f2f2;
+  outline-color: #ddd9d2;
+  box-shadow: none;
+}
+
+.language-toggle__item {
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 160ms ease;
+}
+
+.language-toggle__item:not(.is-active):hover,
+.language-toggle__item:not(.is-active):focus-visible {
+  color: #a86a2a !important;
+  background: transparent;
+  outline: none;
+}
+
+.language-toggle__item:active {
+  transform: none;
+}
+
+.language-toggle__item.is-active {
+  z-index: 0;
+  color: #0f0f0f;
+  background: #ffffff;
+  outline: 1px solid #e4e1db;
+  outline-offset: -1px;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.language-toggle__item.is-active:hover,
+.language-toggle__item.is-active:focus-visible {
+  color: #0f0f0f;
+  background: #ffffff;
+}

@@ -1,0 +1,2093 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arkady Kuznetsov</title>
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#0f0f0f" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #ffffff;
+      }
+
+      html {
+        scroll-padding-top: 120px;
+      }
+
+      body {
+        color: #0f0f0f;
+        font-family: "Inter", sans-serif;
+      }
+
+      body.modal-open {
+        overscroll-behavior: none;
+      }
+
+      img,
+      video {
+        display: block;
+        max-width: 100%;
+      }
+
+      .controlled-video {
+        align-self: stretch;
+        position: relative;
+        width: 100%;
+      }
+
+      .controlled-video video {
+        cursor: pointer;
+      }
+
+      .video-toggle {
+        position: absolute;
+        right: 24px;
+        bottom: 24px;
+        z-index: 130;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 50%;
+        background: rgba(253, 253, 253, 0.52);
+        color: rgba(0, 0, 0, 0.24);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+        cursor: pointer;
+        outline: none;
+        transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, color 0.2s ease;
+      }
+
+      .controlled-video.is-touch-hover .video-toggle,
+      .video-toggle:focus-visible {
+        background: #fdfdfd;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+        color: rgba(0, 0, 0, 0.6);
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .controlled-video:hover .video-toggle,
+        .video-toggle:hover {
+          background: #fdfdfd;
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+          color: rgba(0, 0, 0, 0.6);
+        }
+      }
+
+      .video-toggle:active {
+        transform: scale(0.88);
+      }
+
+      .video-toggle__icon {
+        display: block;
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+        stroke: none;
+      }
+
+      .video-toggle__icon--play {
+        display: none;
+      }
+
+      .video-toggle.is-paused .video-toggle__icon--play {
+        display: block;
+      }
+
+      .video-toggle.is-paused .video-toggle__icon--pause {
+        display: none;
+      }
+
+      .case-page {
+        width: min(100%, 1040px);
+        margin: 0 auto;
+        padding: 32px 24px 48px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 120px;
+        background: #ffffff;
+        overflow: visible;
+      }
+
+      .case-page > :first-child {
+        width: min(100%, 1040px) !important;
+        max-width: 100%;
+      }
+
+      .case-page > :not(:first-child) {
+        width: min(100%, 768px) !important;
+        max-width: 100%;
+        align-self: center !important;
+      }
+
+      .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .brand {
+        color: #0f0f0f;
+        font-family: "Golos Text", sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 28.8px;
+        text-decoration: none;
+      }
+
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+
+      .header-link {
+        color: #0f0f0f;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 19.2px;
+        text-decoration: none;
+        transition: color 160ms ease;
+      }
+
+      .header-link:hover,
+      .header-link:focus-visible {
+        color: #a86a2a;
+      }
+
+      .language-toggle {
+        height: 36px;
+        padding: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f2f2f2;
+        border-radius: 999px;
+        outline: 1px #ddd9d2 solid;
+        outline-offset: -1px;
+      }
+
+      .language-toggle__item {
+        align-self: stretch;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        color: rgba(15, 15, 15, 0.4);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 16.8px;
+      }
+
+      .language-toggle__item.is-active {
+        background: #ffffff;
+        outline: 1px #e4e1db solid;
+        outline-offset: -1px;
+        color: #0f0f0f;
+      }
+
+      .floating-case-nav {
+        --nav-progress: 0;
+        box-sizing: border-box;
+        position: fixed;
+        top: 14px;
+        left: 50%;
+        z-index: 90;
+        width: min(calc(100vw - 32px), 804px);
+        opacity: var(--nav-progress);
+        pointer-events: none;
+        filter: saturate(calc(0.32 + (var(--nav-progress) * 0.68)));
+        transform: translateX(-50%) translateY(calc((1 - var(--nav-progress)) * -12px));
+        transition:
+          opacity 140ms linear,
+          transform 140ms linear,
+          filter 140ms linear;
+      }
+
+      .floating-case-nav.is-visible {
+        pointer-events: auto;
+      }
+
+      .floating-case-nav__panel {
+        box-sizing: border-box;
+        position: relative;
+        width: 100%;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 32px;
+        overflow: hidden;
+        background: rgba(242, 242, 242, 0.94);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 18px 42px rgba(15, 15, 15, 0.08);
+        outline: 1px solid rgba(221, 217, 210, 0.86);
+        outline-offset: -1px;
+      }
+
+      .floating-case-nav__panel::before,
+      .floating-case-nav__panel::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 56px;
+        display: none;
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 160ms ease;
+      }
+
+      .floating-case-nav__panel::before {
+        left: 0;
+        background: linear-gradient(90deg, #f2f2f2 0%, rgba(242, 242, 242, 0.98) 38%, rgba(242, 242, 242, 0) 100%);
+      }
+
+      .floating-case-nav__panel::after {
+        right: 0;
+        background: linear-gradient(270deg, #f2f2f2 0%, rgba(242, 242, 242, 0.98) 38%, rgba(242, 242, 242, 0) 100%);
+      }
+
+      .floating-case-nav.has-left-fade .floating-case-nav__panel::before {
+        opacity: 1;
+      }
+
+      .floating-case-nav.has-right-fade .floating-case-nav__panel::after {
+        opacity: 1;
+      }
+
+      .floating-case-nav__list {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        -webkit-mask-image: none;
+        mask-image: none;
+        cursor: default;
+        user-select: none;
+      }
+
+      .floating-case-nav.has-left-fade .floating-case-nav__list {
+        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 100%);
+        mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 100%);
+      }
+
+      .floating-case-nav.has-right-fade .floating-case-nav__list {
+        -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
+        mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
+      }
+
+      .floating-case-nav.has-left-fade.has-right-fade .floating-case-nav__list {
+        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
+        mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
+      }
+
+      .floating-case-nav__list::-webkit-scrollbar {
+        display: none;
+      }
+
+      .floating-case-nav__list.is-dragging {
+        cursor: grabbing;
+        scroll-snap-type: none;
+      }
+
+      .floating-case-nav__list.is-dragging .floating-case-nav__link {
+        cursor: grabbing;
+      }
+
+      .floating-case-nav__item {
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+      }
+
+      .floating-case-nav__link {
+        box-sizing: border-box;
+        min-height: 48px;
+        padding: 0 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        background: transparent;
+        color: rgba(15, 15, 15, 0.56);
+        text-decoration: none;
+        white-space: nowrap;
+        transition:
+          color 160ms ease,
+          transform 160ms ease;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      .floating-case-nav__link:hover,
+      .floating-case-nav__link:focus-visible {
+        color: #0f0f0f;
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .floating-case-nav__link.is-active {
+        color: #0f0f0f;
+      }
+
+      .floating-case-nav__link.is-active .floating-case-nav__text {
+        font-weight: 600;
+      }
+
+      .floating-case-nav__link--summary {
+        width: 60px;
+        max-width: 60px;
+      }
+
+      .floating-case-nav__text {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        pointer-events: none;
+      }
+
+      .desktop-copy-break {
+        display: none;
+      }
+
+      .aggregator-swipe-showcase {
+        align-self: stretch;
+        height: 445px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 24px;
+        outline: 1px #b8b8b8 solid;
+        outline-offset: -1px;
+        display: grid;
+        place-items: center;
+        background: #edf0f7;
+      }
+
+      .aggregator-swipe-showcase__placeholder {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .aggregator-swipe-showcase__phone {
+        position: relative;
+        z-index: 1;
+        width: 189px;
+        aspect-ratio: 189 / 386;
+        filter: drop-shadow(0 22px 48px rgba(15, 23, 42, 0.14));
+      }
+
+      .aggregator-swipe-showcase__screen {
+        position: absolute;
+        left: 5.82%;
+        top: 2.33%;
+        width: 88.89%;
+        height: 95.34%;
+        overflow: hidden;
+        border-radius: 12.9% / 5.85%;
+        background: #ffffff;
+        z-index: 1;
+      }
+
+      .aggregator-swipe-showcase__video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        object-fit: cover;
+        object-position: center top;
+        transform: translateX(1px) scale(1.0357);
+        transform-origin: center top;
+        background: #ffffff;
+      }
+
+      .aggregator-swipe-showcase__frame {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .aggregator-swipe-showcase__home-indicator {
+        position: absolute;
+        left: 50%;
+        bottom: 3.15%;
+        width: 40%;
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.94);
+        transform: translateX(-50%);
+        pointer-events: none;
+        z-index: 4;
+      }
+
+      .inline-image-trigger {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: #2563eb;
+        font: inherit;
+        line-height: inherit;
+        text-decoration: none;
+        transition: color 160ms ease;
+        cursor: pointer;
+      }
+
+      .inline-image-trigger:hover,
+      .inline-image-trigger:focus-visible {
+        color: #123ea8;
+        outline: none;
+      }
+
+      .case-section-stack {
+        gap: 64px !important;
+      }
+
+      .case-section-anchor {
+        margin-top: 40px !important;
+        scroll-margin-top: 120px;
+      }
+
+      .case-page > div + div {
+        margin-top: 40px;
+      }
+
+      .case-pagination {
+        width: min(100%, 766px) !important;
+        max-width: 100%;
+        align-self: center !important;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .case-pagination__label-row {
+        align-self: flex-end;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .case-pagination__label {
+        color: #767676;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+      }
+
+      .case-pagination__label-icon {
+        width: 18px;
+        height: 18px;
+        display: block;
+        color: #767676;
+      }
+
+      .case-pagination__link {
+        width: 100%;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 19px;
+        border-radius: 24px;
+        background: #f2f2f2;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .case-pagination__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .case-pagination__copy {
+        width: 660px;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .case-pagination__title {
+        margin: 0;
+        color: #0f0f0f;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 28.8px;
+      }
+
+      .case-pagination__meta {
+        flex: 0 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .case-pagination__pill {
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.06);
+        color: #334155;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      .case-pagination__description {
+        margin: 0;
+        width: 620px;
+        max-width: 100%;
+        color: #4b5563;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 26px;
+      }
+
+      .case-pagination__label-row {
+        display: none;
+      }
+
+      .case-pagination__link {
+        box-sizing: border-box;
+        position: relative;
+        padding: 24px 72px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        border-radius: 12px;
+        background: #f2f2f2;
+        border: 1px solid rgba(15, 23, 42, 0.06);
+        color: inherit;
+        text-decoration: none;
+        transition:
+          background-color 160ms ease,
+          border-color 160ms ease;
+      }
+
+      .case-pagination__link:hover,
+      .case-pagination__link:focus-visible {
+        background: #efefef;
+        border-color: rgba(15, 23, 42, 0.1);
+      }
+
+      .case-pagination__label {
+        color: #767676;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      .case-pagination__arrow {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        width: 24px;
+        height: 24px;
+        color: #0f0f0f;
+      }
+
+      .case-pagination__copy {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .case-pagination__title {
+        margin: 0;
+        color: #0f0f0f;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 32px;
+      }
+
+      .case-pagination__meta {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .case-pagination__pill {
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.06);
+        color: #334155;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      .case-pagination__description {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        color: #4b5563;
+      }
+
+      .image-modal {
+        position: fixed;
+        inset: 0;
+        padding: 24px;
+        background: rgba(15, 15, 15, 0.76);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 160ms ease;
+        z-index: 1000;
+      }
+
+      .image-modal.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .image-modal__dialog {
+        position: relative;
+        width: fit-content;
+        height: fit-content;
+        max-width: calc(100vw - 48px);
+        max-height: calc(100vh - 48px);
+        padding: 28px;
+        border-radius: 28px;
+        background: #f3f7fb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .image-modal__image {
+        width: auto;
+        height: auto;
+        max-width: calc(100vw - 152px);
+        max-height: calc(100vh - 152px);
+        object-fit: contain;
+        display: block;
+        border-radius: 20px;
+        background: transparent;
+      }
+
+      .image-modal__close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 40px;
+        height: 40px;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(15, 15, 15, 0.82);
+        color: #ffffff;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+      }
+
+      .image-modal__close svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+      }
+
+      @media (max-width: 1080px) {
+        .case-page {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .floating-case-nav {
+          top: 10px;
+          width: min(calc(100vw - 16px), 804px);
+        }
+
+        .floating-case-nav__panel {
+          border-radius: 20px;
+        }
+      }
+
+      @media (max-width: 820px) {
+        .video-toggle {
+          right: 24px;
+          bottom: 24px;
+        }
+
+        .case-page {
+          gap: 72px;
+          padding-top: 32px;
+          padding-bottom: 32px;
+        }
+
+        .case-page > .case-section-stack:first-of-type {
+          width: 100% !important;
+          display: flex !important;
+          flex-direction: column;
+          align-items: flex-start !important;
+          gap: 24px !important;
+        }
+
+        .case-page > .case-section-stack:first-of-type > :last-child {
+          flex-wrap: wrap;
+          gap: 16px !important;
+        }
+
+        .case-page > :not(:first-child) {
+          width: 100% !important;
+        }
+
+        .case-pagination__header {
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .case-pagination__copy,
+        .case-pagination__description {
+          width: 100%;
+        }
+
+        .case-pagination__meta {
+          justify-content: flex-start;
+        }
+
+        .floating-case-nav__panel {
+          padding: 8px;
+        }
+
+        .floating-case-nav__link {
+          min-height: 38px;
+          padding: 0 10px;
+        }
+
+        .floating-case-nav__text {
+          font-size: 15px;
+        }
+
+        .desktop-copy-break {
+          display: none;
+        }
+
+        .aggregator-swipe-showcase {
+          height: auto;
+          aspect-ratio: 768 / 445;
+        }
+
+        .aggregator-swipe-showcase__phone {
+          width: clamp(166px, 30vw, 189px);
+        }
+
+        .image-modal {
+          padding: 16px;
+        }
+
+        .image-modal__dialog {
+          max-width: calc(100vw - 32px);
+          max-height: calc(100vh - 32px);
+          padding: 24px;
+          border-radius: 22px;
+        }
+
+        .image-modal__image {
+          max-width: calc(100vw - 72px);
+          max-height: calc(100vh - 72px);
+        }
+
+        .image-modal__close {
+          top: 8px;
+          right: 8px;
+        }
+      }
+
+      @media (max-width: 820px) {
+        html {
+          scroll-padding-top: 84px;
+        }
+
+        body {
+          overflow-x: hidden;
+        }
+
+        .case-page,
+        .case-page * {
+          box-sizing: border-box;
+        }
+
+        .site-header .language-toggle,
+        .site-header .language-toggle__item {
+          box-sizing: content-box;
+        }
+
+        .site-header .language-toggle {
+          height: 36px;
+          padding: 2px;
+          flex-shrink: 0;
+        }
+
+        .site-header .language-toggle__item {
+          min-width: 0;
+          width: auto;
+          padding: 0 12px !important;
+          font-size: 14px !important;
+          line-height: 16.8px !important;
+        }
+
+        .case-page {
+          width: 100%;
+          padding: 32px 16px 44px;
+          gap: 56px;
+          overflow: hidden;
+        }
+
+        .case-page > *,
+        .case-page [style*="align-self: stretch"],
+        .case-page [style*="display: flex"],
+        .case-page [style*="display: inline-flex"] {
+          max-width: 100% !important;
+          min-width: 0 !important;
+        }
+
+        .case-page [style*="align-self: stretch"] {
+          width: 100% !important;
+        }
+
+        .case-page > :not(:first-child) {
+          width: 100% !important;
+        }
+
+        .case-page > div + div {
+          margin-top: 0;
+        }
+
+        .case-section-stack,
+        .case-section-stack > [style*="gap: 64px"] {
+          gap: 40px !important;
+        }
+
+        .case-section-anchor {
+          margin-top: 0 !important;
+          gap: 24px !important;
+          scroll-margin-top: 84px;
+        }
+
+        .case-page [style*="gap: 64px"] {
+          gap: 40px !important;
+        }
+
+        .case-page [style*="gap: 32px"] {
+          gap: 24px !important;
+        }
+
+        .case-page [style*="gap: 24px"] {
+          gap: 18px !important;
+        }
+
+        .case-page [style*="gap: 16px"] {
+          gap: 14px !important;
+        }
+
+        .case-page [style*="width: 768px"],
+        .case-page [style*="width: 660px"],
+        .case-page [style*="width: 620px"],
+        .case-page [style*="width: 682px"] {
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+        }
+
+        .case-page [style*="height: 20px"][style*="inline-flex"] {
+          height: auto !important;
+          flex-wrap: wrap;
+          row-gap: 8px !important;
+        }
+
+        .case-page [style*="font-size: 32px"] {
+          font-size: 30px !important;
+          line-height: 38px !important;
+        }
+
+        .case-page [style*="font-size: 28px"] {
+          font-size: 24px !important;
+          line-height: 31px !important;
+        }
+
+        .case-page [style*="font-size: 22px"] {
+          font-size: 20px !important;
+          line-height: 26px !important;
+        }
+
+        .case-page [style*="font-size: 18px"] {
+          font-size: 17px !important;
+          line-height: 25px !important;
+        }
+
+        .case-page [style*="font-size: 16px"] {
+          font-size: 15px !important;
+          line-height: 24px !important;
+        }
+
+        .case-page [style*="font-size: 14px"] {
+          font-size: 14px !important;
+          line-height: 20px !important;
+        }
+
+        .case-page video[style*="height: 480px"],
+        .case-page video[style*="height: 445px"] {
+          width: 100% !important;
+          height: auto !important;
+          max-height: none !important;
+          border-radius: 18px !important;
+          object-fit: contain !important;
+          background: #f2f2f2 !important;
+        }
+
+        .case-page img[style*="height: 445px"] {
+          width: 100% !important;
+          height: auto !important;
+          border-radius: 18px !important;
+          object-fit: contain !important;
+        }
+
+        .case-page [data-background="On"][data-frame="On"] {
+          height: auto !important;
+          aspect-ratio: 768 / 391;
+          border-radius: 18px !important;
+        }
+
+        .case-page [data-background="On"][data-frame="On"] img {
+          object-fit: cover !important;
+        }
+
+        .aggregator-swipe-showcase {
+          height: 360px;
+          aspect-ratio: auto;
+          border-radius: 18px;
+        }
+
+        .aggregator-swipe-showcase__phone {
+          width: 166px;
+        }
+
+        .floating-case-nav {
+          top: 8px;
+          width: calc(100vw - 16px);
+        }
+
+        .floating-case-nav__panel {
+          padding: 6px;
+          border-radius: 18px;
+        }
+
+        .floating-case-nav__list {
+          gap: 8px;
+        }
+
+        .floating-case-nav__link {
+          min-height: 36px;
+          padding: 0 10px;
+        }
+
+        .floating-case-nav__text {
+          font-size: 13px;
+          line-height: 18px;
+        }
+
+        .case-pagination {
+          width: 100% !important;
+          gap: 0;
+        }
+
+        .case-pagination__link {
+          padding: 20px 56px 20px 20px;
+          border-radius: 20px;
+          gap: 14px;
+        }
+
+        .case-pagination__label {
+          font-size: 14px;
+          line-height: 20px;
+        }
+
+        .case-pagination__arrow {
+          top: 20px;
+          right: 20px;
+        }
+
+        .case-pagination__title {
+          font-size: 22px;
+          line-height: 28px;
+        }
+
+        .case-pagination__meta {
+          gap: 8px;
+        }
+
+        .case-page .case-pagination__description {
+          width: calc(100% + 56px) !important;
+          max-width: calc(100% + 56px) !important;
+          font-size: 15px;
+          line-height: 24px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .case-page {
+          gap: 52px;
+        }
+
+        .case-section-stack,
+        .case-section-stack > [style*="gap: 64px"],
+        .case-page [style*="gap: 64px"] {
+          gap: 36px !important;
+        }
+
+        .aggregator-swipe-showcase {
+          height: 340px;
+        }
+
+        .aggregator-swipe-showcase__phone {
+          width: 158px;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="./scrollbar.css?v=20260528-mobile" />
+    <link rel="stylesheet" href="./back-to-top.css?v=20260527-1323" />
+    <link rel="stylesheet" href="./footer-note.css?v=20260527-1331" />
+    <link rel="stylesheet" href="./language-toggle.css?v=20260528-hover2" />
+    <link rel="stylesheet" href="./site-header.css?v=20260528-menu3" />
+    </head>
+  <body>
+<nav class="floating-case-nav" aria-label="Navigation through the Vaiti case sections" data-floating-case-nav>
+  <div class="floating-case-nav__panel">
+    <ul class="floating-case-nav__list">
+      <li class="floating-case-nav__item">
+        <a class="floating-case-nav__link" href="#research"><span class="floating-case-nav__text">Research</span></a>
+      </li>
+      <li class="floating-case-nav__item">
+        <a class="floating-case-nav__link" href="#vacancies"><span class="floating-case-nav__text">Jobs</span></a>
+      </li>
+      <li class="floating-case-nav__item">
+        <a class="floating-case-nav__link" href="#companies"><span class="floating-case-nav__text">Companies</span></a>
+      </li>
+      <li class="floating-case-nav__item">
+        <a class="floating-case-nav__link" href="#competencies"><span class="floating-case-nav__text">Competencies</span></a>
+      </li>
+      <li class="floating-case-nav__item">
+        <a class="floating-case-nav__link" href="#interview"><span class="floating-case-nav__text">Preparation</span></a>
+      </li>
+      <li class="floating-case-nav__item">
+        <a class="floating-case-nav__link" href="#cover-letter"><span class="floating-case-nav__text">Cover Letter</span></a>
+      </li>
+      <li class="floating-case-nav__item">
+        <a class="floating-case-nav__link" href="#resume"><span class="floating-case-nav__text">Resume</span></a>
+      </li>
+      <li class="floating-case-nav__item">
+        <a class="floating-case-nav__link" href="#ui-kit"><span class="floating-case-nav__text">Design System</span></a>
+      </li>
+      <li class="floating-case-nav__item">
+        <a class="floating-case-nav__link floating-case-nav__link--summary" href="#summary"><span class="floating-case-nav__text">Outcome</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="case-page">
+  <header class="site-header">
+  <a class="brand" href="./index-en.html">kuznetsov.a</a>
+  <nav class="header-nav" aria-label="Main navigation">
+    <div class="header-nav__links">
+    <a class="header-link" href="https://t.me/kuznetsou_a" aria-label="Telegram" target="_blank" rel="noopener noreferrer">Telegram</a>
+    <a class="header-link" href="mailto:kuznetsouad@gmail.com" aria-label="Email">Email</a>
+    <a class="header-link" href="./assets/cv-en.pdf" aria-label="CV" download="CV Kuznetsov Arkady - product designer.pdf">CV</a>
+    </div>
+    <div class="header-nav__controls">
+    <div class="language-toggle" aria-label="Language switcher">
+      <a class="language-toggle__item" href="./vaiti.html" hreflang="ru" lang="ru">RU</a>
+      <a class="language-toggle__item is-active" href="./vaiti-en.html" hreflang="en" lang="en" aria-current="page">EN</a>
+    </div>
+    </div>
+  </nav>
+</header>
+  <div class="case-section-stack" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 64px; display: flex">
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 64px; display: flex">
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 12px; display: flex">
+          <div style="color: #0F0F0F; font-size: 32px; font-family: Inter; font-weight: 600; line-height: 44px; word-wrap: break-word">VAITI</div>
+          <div style="width: 768px; height: 20px; justify-content: flex-start; align-items: center; gap: 12px; display: inline-flex">
+            <div style="color: #767676; font-size: 14px; font-family: Inter; font-weight: 500; line-height: 20px; word-wrap: break-word">Product Designer</div>
+            <div style="color: #9CA3AF; font-size: 14px; font-family: Inter; font-weight: 500; line-height: 20px; word-wrap: break-word">•</div>
+            <div style="color: #767676; font-size: 14px; font-family: Inter; font-weight: 500; line-height: 20px; word-wrap: break-word">Startup</div>
+            <div style="color: #9CA3AF; font-size: 14px; font-family: Inter; font-weight: 500; line-height: 20px; word-wrap: break-word">•</div>
+            <div style="justify-content: center; align-items: center; gap: 8px; display: flex">
+              <div style="color: #767676; font-size: 14px; font-family: Inter; font-weight: 500; line-height: 20px; word-wrap: break-word">2026</div>
+            </div>
+          </div>
+        </div>
+        <div style="align-self: stretch"><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word">Designed from scratch </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">the interfaces and logic</span><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word"> for a career service by bringing together </span><br class="desktop-copy-break"><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">job search, job listings, a company directory, an interview trainer </span><br class="desktop-copy-break"><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 400; line-height: 28px; word-wrap: break-word">and </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">tools</span><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word"> into one unified workspace. Created a shared </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">design system</span><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word">, which connected the services and prepared the product for </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">a fast launch</span><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word"> and future </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">growth.</span></div>
+      </div>
+      <video style="align-self: stretch; width: 100%; height: 480px; border-radius: 24px; object-fit: cover; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="auto"><source src="./assets/vaiti-preview.webm" type="video/webm"></video>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 64px; display: flex">
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">About the Project</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">Vaiti is a job-tech startup that helps people find jobs in IT. Instead of <br class="desktop-copy-break">using many different websites, the product offers a single platform. It brings together <br class="desktop-copy-break">job search, a company database, skill development, and the tools needed to apply.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">My Role</div>
+        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 12px; display: flex">
+          <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">When I joined Vaiti, the team did not yet have a dedicated designer. The product was being built <br class="desktop-copy-break">collectively, so the interface lacked a unified logic and end-to-end user flows. <br class="desktop-copy-break">There were already some early drafts, but many of them had to be completely rethought.</div>
+          <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">My main task was to turn business ideas into clear, usable interfaces. <br class="desktop-copy-break">I reviewed questionable decisions, rebuilt screen logic, and looked for a balance between business goals <br class="desktop-copy-break">and user convenience.</div>
+        </div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">What I Did</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I took full ownership of the product design: discarded some of the existing drafts, <br class="desktop-copy-break">introduced new decisions with clear reasoning, and designed all key scenarios and screens. <br class="desktop-copy-break">Throughout the process, I built the interaction logic across the services and laid the foundation <br class="desktop-copy-break">for an interface system so the product would feel coherent and predictable for users.</div>
+      </div>
+    </div>
+  </div>
+  <div id="research" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">Research</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+        <div data-background="On" data-frame="On" style="align-self: stretch; height: 391px; position: relative; background: #EDF0F7; overflow: hidden; border-radius: 24px; outline: 1px rgba(227, 227, 227, 0.20) solid; outline-offset: -1px">
+        <img src="./assets/vaiti-research.png" alt="Vaiti research screen" style="width: 100%; height: 100%; object-fit: fill; object-position: center; display: block;">
+        </div>
+        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+          <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 12px; display: flex">
+            <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Constraints</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The project was at the MVP stage, so we could not stay in research for long: the team <br class="desktop-copy-break">had to move to interface design quickly and push the product into development.</div>
+          </div>
+          <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+            <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Competitors</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I ran a quick analysis of direct and indirect competitors. For direct competitors, I studied job-tech <br class="desktop-copy-break">services — how their job listings, filters, cards, and company pages <br class="desktop-copy-break">were structured. For indirect competitors, I looked at products for interview preparation, resume building, <br class="desktop-copy-break">and skill development.</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">For each service, I documented its strengths and weaknesses. I looked for patterns <br class="desktop-copy-break">users were already familiar with, and noted where the interface was overloaded or made the <br class="desktop-copy-break">flow harder.</div>
+          </div>
+          <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+            <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Users</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">It was easy for me to understand the target audience because shortly before the project, I had been looking <br class="desktop-copy-break">for a job in IT myself. From my own experience, I knew how hard it is to compare job requirements, choose <br class="desktop-copy-break">companies, and prepare for interviews.</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">During the work, I also ran quick hallway tests with developer friends <br class="desktop-copy-break">who matched the product’s target audience. I showed them individual <br class="desktop-copy-break">flows, asked questions about search, filters, job cards, and applications, and watched <br class="desktop-copy-break">where the logic was not read as intended.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="vacancies" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">Job Aggregator</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This was the first module I used to shape the entire product. This is where <br class="desktop-copy-break">the overall interface logic emerged and the UI kit began to take shape.</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">Job search is always stressful. Users have to compare <br class="desktop-copy-break">dozens of roles, salaries, tech stacks, and company reliability at the same time. I wanted <br class="desktop-copy-break">the Vaiti interface to feel like a calm, clean space that does not pressure <br class="desktop-copy-break">the user. Soft gradients helped make the screens feel visually lighter, keeping the focus <br class="desktop-copy-break">on the text and the substance of the jobs.</div>
+      </div>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: center; gap: 16px; display: flex">
+      <div class="controlled-video" data-video-control>
+        <video style="align-self: stretch; width: 100%; height: 480px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+          <source src="./assets/vaiti-aggregator-20260511-1222.mp4?v=20260527-1416" type="video/mp4">
+        </video>
+        <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
+          <svg class="video-toggle__icon video-toggle__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 4.75c0-.86.972-1.348 1.67-.847l12 8a1 1 0 0 1 0 1.694l-12 8c-.698.5-1.67.013-1.67-.847v-16z" />
+          </svg>
+          <svg class="video-toggle__icon video-toggle__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM17 4h-2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Key Decisions</div>
+        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+          <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+            <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">One Job per Row</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">Initially, I designed the results in two columns because I wanted to show as many <br class="desktop-copy-break">options as possible on one screen. But after studying research and articles on user behavior <br class="desktop-copy-break">in such interfaces, I dropped the idea. It became clear that during job search, <br class="desktop-copy-break">people value calm, sequential reading more than content density. <br class="desktop-copy-break">Two columns created extra visual noise in a context where maximum focus is needed.</div>
+          </div>
+          <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+            <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Relevant Jobs Instead of Filters</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">Initially, users had to configure filters manually. Later, we added <br class="desktop-copy-break">a resume-based job matching feature: the algorithm suggests relevant options automatically. I brought <br class="desktop-copy-break">the smart matching toggle to the foreground and hid the classic filters behind a button. <br class="desktop-copy-break">This decluttered the interface and made search faster.</div>
+          </div>
+          <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+            <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Shortlist and Compromise</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The business wanted to make the shortlist the only path to applying: liked a job → <br class="desktop-copy-break">saved it → opened the shortlist → launched auto-apply. This flow <br class="desktop-copy-break">was already complex, but the main issue was that auto-apply did not work everywhere, only with an integration <br class="desktop-copy-break">with the platform or through a special plugin. For most users, this would have become a dead end.</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I suggested making the “apply at source” button the primary action. This way, <br class="desktop-copy-break">we could guarantee that the user could always complete the target action. I kept the shortlist <br class="desktop-copy-break">as a secondary flow — for those who want to collect options first and then apply <br class="desktop-copy-break">to them in one go. In the end, we agreed on this solution.</div>
+          </div>
+          <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+            <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Job Page</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The business wanted all information to expand directly inside the general list on click. <br class="desktop-copy-break">I insisted on creating a separate page. Without it, the listing would have turned <br class="desktop-copy-break">into overloaded chaos that would be hard for users to navigate.</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">On the page itself, I placed the full job description and made “Apply <br class="desktop-copy-break">at source” the main action, while keeping auto-apply secondary. I also added <br class="desktop-copy-break">a block with the company’s rating and contacts. This lets the user immediately evaluate <br class="desktop-copy-break">both the job and the employer without switching between tabs.</div>
+          </div>
+        </div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+          <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Swipe Mode</div>
+          <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I designed an alternative browsing mode that does not exist on the Russian market. Instead of <br class="desktop-copy-break">a list, there are cards: swipe left to skip, swipe right to add to the shortlist.</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The card opens in an expanded state right away. It contains only the essentials <br class="desktop-copy-break">for a quick decision: employer, role, salary, tech stack, key task, and an <br class="desktop-copy-break">auto-apply marker. The full description can be read below by scrolling.</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I made the switch between list and cards clearly visible so users could easily <br class="desktop-copy-break">change the browsing format on the fly. I also added a counter nearby that shows in real time <br class="desktop-copy-break">how many jobs were found in total and how many are left to view with the selected filters.</div>
+          </div>
+        </div>
+                <div class="aggregator-swipe-showcase" aria-label="Swipe mode demonstration inside a phone">
+                  <img class="aggregator-swipe-showcase__placeholder" src="./assets/vaiti-swipe-placeholder.svg?v=20260527-1536" alt="" aria-hidden="true" />
+                  <div class="aggregator-swipe-showcase__phone">
+                    <div class="aggregator-swipe-showcase__screen">
+                      <video class="aggregator-swipe-showcase__video" autoplay muted loop playsinline preload="auto">
+                        <source src="./assets/phone-demo.mp4?v=20260527-1617" type="video/mp4" />
+                      </video>
+                    </div>
+                    <img class="aggregator-swipe-showcase__frame" src="./assets/vaiti-phone-frame.svg?v=20260527-1617" alt="" aria-hidden="true" />
+                    <span class="aggregator-swipe-showcase__home-indicator" aria-hidden="true"></span>
+                  </div>
+                </div>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Outcome</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section became a full-fledged workspace for job seekers. I managed <br class="desktop-copy-break">to bring a complex search process into one clear system, where all the tools for working <br class="desktop-copy-break">with jobs are gathered in one place.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="companies" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">Company Directory</div>
+      <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">There was no company directory in the product — only a <button type="button" class="inline-image-trigger" data-image-modal-trigger="" data-modal-src="./assets/vaiti-companies-logos-map.png" data-modal-alt="IT market map">set of logos</button>, <br class="desktop-copy-break">grouped by category, with no descriptions, search, or context. I suggested <br class="desktop-copy-break">reworking this block and turning it into a full product section with convenient <br class="desktop-copy-break">cards, search, and filters.</div>
+    </div>
+    <div class="controlled-video" data-video-control>
+      <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+        <source src="./assets/vaiti-companies-20260511-1213.mp4" type="video/mp4">
+      </video>
+      <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
+        <svg class="video-toggle__icon video-toggle__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 4.75c0-.86.972-1.348 1.67-.847l12 8a1 1 0 0 1 0 1.694l-12 8c-.698.5-1.67.013-1.67-.847v-16z" />
+        </svg>
+        <svg class="video-toggle__icon video-toggle__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM17 4h-2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
+        </svg>
+      </button>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Key Decisions</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Two Columns</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">Unlike the job list, here I intentionally used a two-column grid. Companies <br class="desktop-copy-break">are searched for differently: users usually do not read the details closely, but scan the page looking for <br class="desktop-copy-break">familiar brands or making a quick comparison. Two columns speed up this process <br class="desktop-copy-break">without overloading the screen.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Company Card</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">Inside the card, I surfaced only what matters most for an initial assessment: business area, <br class="desktop-copy-break">short description, tech stack, and two ratings — overall rating and hiring difficulty. <br class="desktop-copy-break">Here, users can also immediately view contacts for recruiters or the company itself.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Targeted Search and Filters</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I added search by name and filters by key parameters: technologies, company size, <br class="desktop-copy-break">and field of work. This turned a simple catalog into a convenient tool <br class="desktop-copy-break">for targeted employer search.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Reviews</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The collection form is designed so users can share details about their <br class="desktop-copy-break">interview process. It includes the number of meetings, whether there was a test task, discussion topics <br class="desktop-copy-break">with management, and even specific questions or tasks they were given during the interview.</div>
+      </div>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Outcome</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">Right now, the directory covers the MVP’s core tasks: finding a company, getting a quick overview, and accessing contacts. But I designed this interface from the start so it can be easily scaled later and expanded with full company pages.</div>
+      </div>
+    </div>
+  </div>
+  <div id="competencies" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">Competency Directory</div>
+        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+          <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section solves the uncertainty problem for job seekers who often do not understand their <br class="desktop-copy-break">real level or market expectations. Here, users simply choose their specialization <br class="desktop-copy-break">and immediately get a complete, clear map of the profession’s requirements.</div>
+        </div>
+      </div>
+      <div class="controlled-video" data-video-control>
+        <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+          <source src="./assets/vaiti-competencies-20260511-1933.mp4" type="video/mp4">
+        </video>
+        <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
+          <svg class="video-toggle__icon video-toggle__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 4.75c0-.86.972-1.348 1.67-.847l12 8a1 1 0 0 1 0 1.694l-12 8c-.698.5-1.67.013-1.67-.847v-16z" />
+          </svg>
+          <svg class="video-toggle__icon video-toggle__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM17 4h-2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 12px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Key Decisions</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Grades</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">To help the team easily fill this section with content, I designed a flexible structure <br class="desktop-copy-break">of blocks. Through the admin panel, different forms and data formats can be combined <br class="desktop-copy-break">for the specifics of any IT profession.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Salary</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The data is hidden — users get access after sharing their own salary. <br class="desktop-copy-break">The database is filled with real numbers from real people.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Related Technologies</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">Users can study each technology in more detail without leaving the section, <br class="desktop-copy-break">which helps them understand the ecosystem of the chosen field faster.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Technical Question Database</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I gathered all preparation questions in one place and organized them by topic and grade. <br class="desktop-copy-break">Users can filter them by their level and prepare calmly <br class="desktop-copy-break">for technical interviews. They no longer need to search for question lists across the internet; the entire <br class="desktop-copy-break">process now happens inside the platform.</div>
+      </div>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Outcome</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section fully covers the user’s main need — to understand market requirements <br class="desktop-copy-break">and determine their level. At the MVP stage, it works as a convenient reference <br class="desktop-copy-break">and self-assessment tool. Later, the competency map can be turned <br class="desktop-copy-break">into a personal navigator that recommends topics and materials for moving <br class="desktop-copy-break">to the next grade.</div>
+      </div>
+    </div>
+  </div>
+  <div id="interview" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">Interview Preparation</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section helps users train their technical knowledge before a real interview. At the <br class="desktop-copy-break">MVP stage, the trainer is implemented, while online testing and a sandbox are planned as the next stages <br class="desktop-copy-break">of development.</div>
+      </div>
+    </div>
+    <div class="controlled-video" data-video-control>
+      <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+        <source src="./assets/vaiti-interview-prep-20260513-1251.mp4" type="video/mp4">
+      </video>
+      <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
+        <svg class="video-toggle__icon video-toggle__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 4.75c0-.86.972-1.348 1.67-.847l12 8a1 1 0 0 1 0 1.694l-12 8c-.698.5-1.67.013-1.67-.847v-16z" />
+        </svg>
+        <svg class="video-toggle__icon video-toggle__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM17 4h-2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
+        </svg>
+      </button>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 12px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Key Decisions</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Recent Sessions</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I brought the history of recent practice sessions to the section’s main screen. This lets the user <br class="desktop-copy-break">instantly continue an interrupted session or quickly review a completed topic without losing <br class="desktop-copy-break">their progress.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Trainer Setup</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I split preparation into three simple steps: choosing a specialization, technology, and grade. <br class="desktop-copy-break">The user sequentially selects their direction, the required tech stack, and the desired <br class="desktop-copy-break">grade. This removes the feeling of complex configuration.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Results</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I designed the results screen so users can immediately review their mistakes. <br class="desktop-copy-break">The system clearly highlights which answers were correct and which were not. This turns the test <br class="desktop-copy-break">from a simple score into real help.</div>
+      </div>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Outcome</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section helps job seekers assess their readiness before entering the market. For now, <br class="desktop-copy-break">only the interview trainer is live in the product, but the interface is already ready for new features. <br class="desktop-copy-break">Most importantly, users now have a convenient starting point: they can launch new <br class="desktop-copy-break">practice sessions, track their percentage of correct answers, and see all their progress in one <br class="desktop-copy-break">place.</div>
+      </div>
+    </div>
+  </div>
+  <div id="cover-letter" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+    <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">Cover Letter</div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+      <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section removes routine from the job application process. The interface’s main task is <br class="desktop-copy-break">to help job seekers create a text in just a couple of clicks that perfectly connects their experience <br class="desktop-copy-break">with the requirements of a specific job.</div>
+    </div>
+    <div class="controlled-video" data-video-control>
+      <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+        <source src="./assets/vaiti-cover-letter-20260513-1411.mp4" type="video/mp4">
+      </video>
+      <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
+        <svg class="video-toggle__icon video-toggle__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 4.75c0-.86.972-1.348 1.67-.847l12 8a1 1 0 0 1 0 1.694l-12 8c-.698.5-1.67.013-1.67-.847v-16z" />
+        </svg>
+        <svg class="video-toggle__icon video-toggle__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM17 4h-2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
+        </svg>
+      </button>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Key Decisions</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Source Flexibility</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">At the MVP stage, the tool can collect data only from the Vaiti directory. But I immediately <br class="desktop-copy-break">designed the logic so the system would not be tied to a single source. <br class="desktop-copy-break">If a user finds a job on another website, they can simply copy <br class="desktop-copy-break">its description and paste it manually. This makes the letter generator useful in absolutely any <br class="desktop-copy-break">scenario.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Focus on the Final Action</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I designed the final screen so users can immediately get the result <br class="desktop-copy-break">of their work. The copy and download buttons are placed in the most visible spot. <br class="desktop-copy-break">This lets users take the finished letter in one click.</div>
+      </div>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Outcome</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I managed to launch a useful tool that reduced writing <br class="desktop-copy-break">a cover letter to just a couple of clicks. We worked around the limitations of the first product version <br class="desktop-copy-break">through flexible data input. Users can now quickly take a ready-made <br class="desktop-copy-break">letter structure and immediately adapt it to an employer’s requirements.</div>
+      </div>
+    </div>
+  </div>
+  <div id="resume" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+    <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">Resume Improvement</div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+      <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section helps job seekers find mistakes in their profiles and fix them. <br class="desktop-copy-break">It helps improve a resume so it can successfully pass <br class="desktop-copy-break">screening bots and appeal to real HR professionals. At the same time, the interface is designed so <br class="desktop-copy-break">users do not lose control over the content and always decide for themselves which edits <br class="desktop-copy-break">to accept and which not to.</div>
+    </div>
+    <div class="controlled-video" data-video-control>
+      <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+        <source src="./assets/vaiti-resume-improvement-20260513-2301.mp4" type="video/mp4">
+      </video>
+      <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
+        <svg class="video-toggle__icon video-toggle__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 4.75c0-.86.972-1.348 1.67-.847l12 8a1 1 0 0 1 0 1.694l-12 8c-.698.5-1.67.013-1.67-.847v-16z" />
+        </svg>
+        <svg class="video-toggle__icon video-toggle__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM17 4h-2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
+        </svg>
+      </button>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Key Decisions</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Change Control</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I immediately rejected the idea of applying all edits blindly with one button. Instead, <br class="desktop-copy-break">the system clearly organizes the AI’s suggestions into categories: it separately checks <br class="desktop-copy-break">structure, achievements, and compatibility with ATS filters. Each suggestion <br class="desktop-copy-break">shows the text in a before-and-after format. This lets users decide for themselves which <br class="desktop-copy-break">wordings work for them and which should remain unchanged.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">On-the-Spot Editing</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">So users would not have to download the document and edit it manually, I added <br class="desktop-copy-break">an editor directly inside the suggestion card. If the AI-generated version seems <br class="desktop-copy-break">not quite accurate, users can quickly adjust it manually before finally accepting <br class="desktop-copy-break">the changes.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Sticky Panel</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">There can be many suggestions and edits in a resume. To keep users from getting confused <br class="desktop-copy-break">or losing their changes while scrolling, I added a floating panel at the bottom of the screen. <br class="desktop-copy-break">It always stays visible. There, the user sees the exact number of selected improvements <br class="desktop-copy-break">and can apply them all at once in one click.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Recruiter-Approved Template</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The preview window shows the finished PDF document. The resume template itself was designed <br class="desktop-copy-break">not just for visual aesthetics — I aligned its structure with an active <br class="desktop-copy-break">recruiter. This ensures that the final file is generated exactly in the format <br class="desktop-copy-break">employers expect to see. From the same window, the resume can be downloaded or saved in one click <br class="desktop-copy-break">to the platform profile.</div>
+      </div>
+    </div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; color: #0F0F0F; font-size: 22px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">Outcome</div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section turned working with AI from blind generation into convenient collaborative <br class="desktop-copy-break">editing. I managed to create a tool that carefully highlights <br class="desktop-copy-break">a user’s growth areas while leaving the final decision to them. As a result, the job seeker <br class="desktop-copy-break">gets a professionally structured document ready to send to employers.</div>
+      </div>
+    </div>
+  </div>
+  <div id="ui-kit" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+    <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">UI Kit</div>
+    <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The project’s design system was built with a focus on development speed and ease of maintenance. <br class="desktop-copy-break">I did not just assemble a component library; I adapted it to the real needs <br class="desktop-copy-break">of front-end development to prevent misunderstandings during implementation.</div>
+    <img src="./assets/vaiti-ui-kit-2.svg?v=20260527-1304" alt="Vaiti UI Kit" loading="lazy" style="align-self: stretch; width: 100%; height: 445px; border: 1px rgba(227, 227, 227, 0.20) solid; border-radius: 24px; background: #ffffff; object-fit: cover; display: block;">
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Base Styles and States</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I immediately documented all rules: from brand gradients to spacing and typography. <br class="desktop-copy-break">For each element, I designed a clear state grid. The developer did not have to <br class="desktop-copy-break">guess how a button looks on hover or when disabled — all these scenarios <br class="desktop-copy-break">were prepared in advance, protecting the interface from visual clutter.</div>
+      </div>
+      <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+        <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Future-Ready Components</div>
+        <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I organized all elements in Figma so the product could be easily developed further. <br class="desktop-copy-break">When the team decides to add new sections in the future, they will not have to redraw <br class="desktop-copy-break">basic patterns. The design will remain consistent, and new screens will be assembled <br class="desktop-copy-break">from ready-made building blocks.</div>
+      </div>
+    </div>
+  </div>
+  <div id="summary" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
+    <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">Outcome</div>
+    <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
+      <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">I managed to turn a broad idea into a clear structure and interfaces while maintaining a balance <br class="desktop-copy-break">between business goals and value for candidates. I created the logic and rules by which <br class="desktop-copy-break">the product can continue to evolve.</div>
+      <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The project is currently in development. I fully prepared and handed over to the team all <br class="desktop-copy-break">materials — from user flows to the adaptive UI Kit, creating a solid foundation for fast <br class="desktop-copy-break">implementation.</div>
+    </div>
+  </div>
+  <div class="case-pagination" aria-label="Case navigation">
+    <a class="case-pagination__link" href="./goora-en.html" aria-label="Next case: Goora">
+      <div class="case-pagination__label">Next Case</div>
+      <svg class="case-pagination__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.75 12H17.25" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"></path>
+        <path d="M12.75 7.5L17.25 12L12.75 16.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <div class="case-pagination__copy" style="width: 660px;">
+        <h2 class="case-pagination__title">Goora</h2>
+        <div class="case-pagination__meta" aria-hidden="true">
+          <span class="case-pagination__pill">WebApp</span>
+          <span class="case-pagination__pill">2025</span>
+        </div>
+      </div>
+      <p class="case-pagination__description" style="width: 620px;">A web interface for a taxi service.<br>Designed the ordering flow: map, fares, payment, states, and errors.</p>
+    </a>
+  </div>
+</div>
+  <div class="image-modal" data-image-modal="" aria-hidden="true">
+    <div class="image-modal__dialog" role="dialog" aria-modal="true" aria-label="IT market map">
+      <button type="button" class="image-modal__close" data-image-modal-close="" aria-label="Close">
+        <svg viewBox="0 0 20 20" aria-hidden="true" fill="none">
+          <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+        </svg>
+      </button>
+      <img class="image-modal__image" data-image-modal-image="" src="./assets/vaiti-companies-logos-map.png" alt="IT market map">
+    </div>
+  </div>
+  <script>
+    (function () {
+      const videos = document.querySelectorAll(".aggregator-swipe-showcase__video");
+
+      function tryPlay(video) {
+        const playPromise = video.play();
+
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(function () {});
+        }
+      }
+
+      videos.forEach(function (video) {
+        video.muted = true;
+        video.defaultMuted = true;
+
+        if (video.readyState >= 2) {
+          tryPlay(video);
+        } else {
+          video.addEventListener("loadeddata", function onLoadedData() {
+            video.removeEventListener("loadeddata", onLoadedData);
+            tryPlay(video);
+          });
+        }
+      });
+
+      window.addEventListener("load", function () {
+        videos.forEach(tryPlay);
+      }, { once: true });
+    }());
+
+    (function () {
+      const wrappers = document.querySelectorAll("[data-video-control]");
+
+      if (!wrappers.length) {
+        return;
+      }
+
+      const isEnglish = (document.documentElement.lang || "").toLowerCase().startsWith("en");
+      const touchHoverQuery = window.matchMedia("(max-width: 820px)");
+
+      wrappers.forEach(function (wrapper) {
+        const video = wrapper.querySelector("video");
+        const button = wrapper.querySelector("[data-video-toggle]");
+        let touchHoverTimeoutId = 0;
+
+        if (!video || !button) {
+          return;
+        }
+
+        const showTouchHover = function () {
+          if (!touchHoverQuery.matches) {
+            return;
+          }
+
+          wrapper.classList.add("is-touch-hover");
+
+          if (touchHoverTimeoutId) {
+            window.clearTimeout(touchHoverTimeoutId);
+          }
+
+          touchHoverTimeoutId = window.setTimeout(function () {
+            wrapper.classList.remove("is-touch-hover");
+            touchHoverTimeoutId = 0;
+          }, 2000);
+        };
+
+        const setPausedState = function () {
+          const isPaused = video.paused;
+          button.classList.toggle("is-paused", isPaused);
+          button.setAttribute("aria-label", isEnglish
+            ? isPaused ? "Play video" : "Pause video"
+            : isPaused ? "Воспроизвести видео" : "Поставить видео на паузу");
+        };
+
+        const toggleVideo = function () {
+          showTouchHover();
+
+          if (video.paused) {
+            const playPromise = video.play();
+
+            if (playPromise && typeof playPromise.catch === "function") {
+              playPromise.catch(function () {});
+            }
+
+            return;
+          }
+
+          video.pause();
+        };
+
+        button.addEventListener("click", function (event) {
+          event.stopPropagation();
+          toggleVideo();
+        });
+
+        video.addEventListener("click", toggleVideo);
+        video.addEventListener("play", setPausedState);
+        video.addEventListener("pause", setPausedState);
+        video.addEventListener("loadeddata", setPausedState, { once: true });
+        setPausedState();
+      });
+    }());
+
+    (function () {
+      const modal = document.querySelector("[data-image-modal]");
+
+      if (!modal) {
+        return;
+      }
+
+      const modalImage = modal.querySelector("[data-image-modal-image]");
+      const closeButton = modal.querySelector("[data-image-modal-close]");
+      const triggers = document.querySelectorAll("[data-image-modal-trigger]");
+      const blockedScrollKeys = new Set([" ", "Spacebar", "ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"]);
+      let lastFocusedElement = null;
+
+      function preventBackgroundScroll(event) {
+        if (!modal.classList.contains("is-open")) {
+          return;
+        }
+
+        event.preventDefault();
+      }
+
+      function openModal(src, alt) {
+        lastFocusedElement = document.activeElement;
+        modalImage.src = src;
+        modalImage.alt = alt;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+        closeButton.focus();
+      }
+
+      function closeModal() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
+
+        if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+          lastFocusedElement.focus();
+        }
+      }
+
+      triggers.forEach(function (trigger) {
+        trigger.addEventListener("click", function () {
+          openModal(trigger.dataset.modalSrc, trigger.dataset.modalAlt || "Image");
+        });
+      });
+
+      closeButton.addEventListener("click", closeModal);
+
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      modal.addEventListener("wheel", preventBackgroundScroll, { passive: false });
+      modal.addEventListener("touchmove", preventBackgroundScroll, { passive: false });
+
+      window.addEventListener("keydown", function (event) {
+        if (!modal.classList.contains("is-open")) {
+          return;
+        }
+
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeModal();
+          return;
+        }
+
+        if (blockedScrollKeys.has(event.key)) {
+          event.preventDefault();
+        }
+      });
+    }());
+
+    (function () {
+      const nav = document.querySelector("[data-floating-case-nav]");
+      const researchSection = document.getElementById("research");
+
+      if (!nav || !researchSection) {
+        return;
+      }
+
+      const panel = nav.querySelector(".floating-case-nav__panel");
+      const list = nav.querySelector(".floating-case-nav__list");
+      const links = Array.from(nav.querySelectorAll(".floating-case-nav__link"));
+      const sections = links
+        .map(function (link) {
+          const target = link.getAttribute("href");
+          return target ? document.querySelector(target) : null;
+        })
+        .filter(Boolean);
+
+      let isTicking = false;
+      let activeId = "";
+      let pendingActiveId = "";
+      let pendingActiveUntil = 0;
+      let dragState = null;
+      let suppressClick = false;
+
+      function centerLink(link, behavior) {
+        if (!link || !list) {
+          return;
+        }
+
+        link.scrollIntoView({
+          behavior: behavior || "smooth",
+          block: "nearest",
+          inline: "center"
+        });
+      }
+
+      function updateEdgeFades() {
+        if (!list) {
+          return;
+        }
+
+        const maxScrollLeft = list.scrollWidth - list.clientWidth;
+        nav.classList.toggle("has-left-fade", list.scrollLeft > 2);
+        nav.classList.toggle("has-right-fade", list.scrollLeft < maxScrollLeft - 2);
+      }
+
+      function setActiveLink(nextActiveId, shouldCenter) {
+        activeId = nextActiveId;
+
+        links.forEach(function (link) {
+          const isActive = link.getAttribute("href") === "#" + nextActiveId;
+          link.classList.toggle("is-active", isActive);
+          link.setAttribute("aria-current", isActive ? "location" : "false");
+
+          if (isActive && shouldCenter) {
+            centerLink(link, "smooth");
+          }
+        });
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function updateNav() {
+        const navOffset = 110;
+        const revealDistance = clamp(window.innerHeight * 0.34, 180, 320);
+        const activationLine = clamp(window.innerHeight * 0.32, 220, 320);
+        const distanceToResearch = researchSection.getBoundingClientRect().top - navOffset;
+        const progress = clamp(1 - distanceToResearch / revealDistance, 0, 1);
+        let nextActiveId = sections.length ? sections[0].id : "";
+
+        nav.style.setProperty("--nav-progress", progress.toFixed(3));
+        nav.classList.toggle("is-visible", progress > 0.02);
+
+        sections.forEach(function (section) {
+          if (section.getBoundingClientRect().top <= activationLine) {
+            nextActiveId = section.id;
+          }
+        });
+
+        if (pendingActiveId) {
+          const pendingSection = document.getElementById(pendingActiveId);
+
+          if (pendingSection) {
+            const pendingTop = pendingSection.getBoundingClientRect().top - navOffset;
+            const atPageBottom =
+              window.innerHeight + window.scrollY >=
+              document.documentElement.scrollHeight - 2;
+            const pendingExpired = performance.now() >= pendingActiveUntil;
+
+            if (
+              Math.abs(pendingTop) <= 24 ||
+              (pendingSection.id === "summary" && atPageBottom) ||
+              pendingExpired
+            ) {
+              pendingActiveId = "";
+              pendingActiveUntil = 0;
+              nextActiveId = pendingSection.id;
+            } else {
+              nextActiveId = pendingActiveId;
+            }
+          } else {
+            pendingActiveId = "";
+            pendingActiveUntil = 0;
+          }
+        }
+
+        setActiveLink(nextActiveId, nextActiveId !== activeId);
+        updateEdgeFades();
+
+        isTicking = false;
+      }
+
+      function requestUpdate() {
+        if (isTicking) {
+          return;
+        }
+
+        isTicking = true;
+        window.requestAnimationFrame(updateNav);
+      }
+
+      function stopDrag() {
+        if (!list || !dragState) {
+          return;
+        }
+
+        suppressClick = dragState.moved;
+        list.classList.remove("is-dragging");
+
+        if (list.hasPointerCapture && list.hasPointerCapture(dragState.pointerId)) {
+          list.releasePointerCapture(dragState.pointerId);
+        }
+
+        dragState = null;
+        updateEdgeFades();
+
+        if (suppressClick) {
+          window.setTimeout(function () {
+            suppressClick = false;
+          }, 0);
+        }
+      }
+
+      links.forEach(function (link) {
+        link.setAttribute("draggable", "false");
+        link.addEventListener("dragstart", function (event) {
+          event.preventDefault();
+        });
+
+        link.addEventListener("click", function (event) {
+          if (suppressClick) {
+            event.preventDefault();
+            return;
+          }
+
+          const targetSelector = link.getAttribute("href");
+          const target = targetSelector ? document.querySelector(targetSelector) : null;
+
+          if (!target) {
+            return;
+          }
+
+          event.preventDefault();
+          centerLink(link, "smooth");
+          pendingActiveId = target.id;
+          pendingActiveUntil = performance.now() + 1200;
+          setActiveLink(target.id, false);
+
+          window.scrollTo({
+            top: window.scrollY + target.getBoundingClientRect().top - 110,
+            behavior: "smooth"
+          });
+
+          if (window.history && typeof window.history.replaceState === "function") {
+            window.history.replaceState(null, "", targetSelector);
+          }
+        });
+      });
+
+      if (panel && list) {
+        list.addEventListener("scroll", updateEdgeFades, { passive: true });
+
+        panel.addEventListener("wheel", function (event) {
+          if (list.scrollWidth <= list.clientWidth) {
+            return;
+          }
+
+          const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+
+          if (!delta) {
+            return;
+          }
+
+          event.preventDefault();
+          list.scrollLeft += delta;
+          updateEdgeFades();
+        }, { passive: false });
+
+        list.addEventListener("dragstart", function (event) {
+          event.preventDefault();
+        });
+
+        list.addEventListener("pointerdown", function (event) {
+          if (event.pointerType === "mouse" && event.button !== 0) {
+            return;
+          }
+
+          dragState = {
+            pointerId: event.pointerId,
+            startX: event.clientX,
+            startY: event.clientY,
+            startScrollLeft: list.scrollLeft,
+            moved: false
+          };
+        });
+
+        list.addEventListener("pointermove", function (event) {
+          if (!dragState || dragState.pointerId !== event.pointerId) {
+            return;
+          }
+
+          const deltaX = event.clientX - dragState.startX;
+          const deltaY = event.clientY - dragState.startY;
+
+          if (Math.abs(deltaX) > 6 && Math.abs(deltaX) > Math.abs(deltaY) && !dragState.moved) {
+            dragState.moved = true;
+            list.classList.add("is-dragging");
+            list.setPointerCapture(event.pointerId);
+          }
+
+          if (dragState.moved) {
+            event.preventDefault();
+            list.scrollLeft = dragState.startScrollLeft - deltaX;
+            updateEdgeFades();
+          }
+        });
+
+        list.addEventListener("pointerup", stopDrag);
+        list.addEventListener("pointercancel", stopDrag);
+      }
+
+      window.addEventListener("scroll", requestUpdate, { passive: true });
+      window.addEventListener("resize", requestUpdate);
+      window.addEventListener("load", requestUpdate, { once: true });
+      requestUpdate();
+    }());
+
+    (function () {
+      const mobileQuery = window.matchMedia("(max-width: 820px)");
+      let typographyApplied = false;
+
+      function applyMobileTypography() {
+        if (typographyApplied || !mobileQuery.matches) {
+          return;
+        }
+
+        const root = document.querySelector(".case-page");
+
+        if (!root) {
+          return;
+        }
+
+        typographyApplied = true;
+
+        document.querySelectorAll(".case-page br").forEach(function (node) {
+          node.replaceWith(document.createTextNode(" "));
+        });
+
+        const excludedSelector = ".site-header, .case-pagination, .language-toggle, .header-nav, .brand, .image-modal";
+        const gluedWords = [
+          "a", "an", "the", "and", "or", "but", "nor", "so", "yet",
+          "to", "of", "in", "on", "at", "by", "for", "from", "with", "into", "onto", "over", "under", "per", "via", "as",
+          "is", "it", "we", "he", "she", "they", "you", "I"
+        ];
+        const escapedWords = gluedWords
+          .slice()
+          .sort(function (first, second) {
+            return second.length - first.length;
+          })
+          .map(function (word) {
+            return word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          });
+        const gluedPattern = new RegExp("(^|[\\s([{\\u0022\\u201C\\u2018-])(" + escapedWords.join("|") + ")\\s+(?=\\S)", "giu");
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            if (!node.nodeValue || !node.nodeValue.trim()) {
+              return NodeFilter.FILTER_REJECT;
+            }
+
+            const parent = node.parentElement;
+
+            if (!parent || parent.closest(excludedSelector)) {
+              return NodeFilter.FILTER_REJECT;
+            }
+
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+
+        const textNodes = [];
+
+        while (walker.nextNode()) {
+          textNodes.push(walker.currentNode);
+        }
+
+        textNodes.forEach(function (node) {
+          let nextValue = node.nodeValue;
+          let previousValue;
+
+          do {
+            previousValue = nextValue;
+            nextValue = nextValue.replace(gluedPattern, function (_, prefix, word) {
+              return prefix + word + "\u00A0";
+            });
+          } while (nextValue !== previousValue);
+
+          node.nodeValue = nextValue;
+        });
+      }
+
+      applyMobileTypography();
+
+      if (mobileQuery.addEventListener) {
+        mobileQuery.addEventListener("change", applyMobileTypography);
+      } else {
+        mobileQuery.addListener(applyMobileTypography);
+      }
+    }());
+
+  </script>
+    <footer class="site-footer-note" aria-label="Website creation information">
+      <span class="site-footer-note__line">Made with Figma, Claude, and vibecoding</span>
+      <span class="site-footer-note__line">© 2026 kuznetsov.a</span>
+    </footer>
+    <script src="./site-header.js?v=20260528-menu"></script>
+    <script src="./contact-links.js?v=20260528-email-copy"></script>
+    <script src="./scrollbar.js?v=20260526-2117"></script>
+    <script src="./back-to-top.js?v=20260527-1242"></script>
+</body>
+</html>
+
+
+
+
+
+
+
