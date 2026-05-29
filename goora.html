@@ -42,6 +42,12 @@
     <link rel="preload" href="./assets/fonts/golos-text-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./assets/fonts/golos-text-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./assets/fonts.css" />
+    <script>
+      if (window.matchMedia && window.matchMedia("(pointer: fine)").matches) {
+        document.documentElement.classList.add("has-custom-scrollbar");
+      }
+    </script>
+    <link rel="stylesheet" href="./scrollbar.css?v=20260529-stable" />
     <style>
       html,
       body {
@@ -810,7 +816,6 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="./scrollbar.css?v=20260528-mobile" />
     <link rel="stylesheet" href="./back-to-top.css?v=20260527-1323" />
     <link rel="stylesheet" href="./footer-note.css?v=20260527-1331" />
     <link rel="stylesheet" href="./language-toggle.css?v=20260528-hover2" />
@@ -870,7 +875,7 @@
               <p class="body-text">Разделил интерфейс на две части: слева находится панель заказа, справа — карта. В панели<br class="desktop-copy-break" />пользователь вводит маршрут, выбирает тариф, способ оплаты и подтверждает заказ.<br class="desktop-copy-break" />Карта показывает город, машины рядом и помогает сразу понять контекст поездки.</p>
               <p class="body-text">Приложение определяет геопозицию пользователя и показывает город, в котором<br class="desktop-copy-break" />он находится. Даже до ввода адреса пользователь видит примерную стоимость тарифов,<br class="desktop-copy-break" />чтобы заранее сориентироваться по цене.</p>
             </div>
-            <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.svg?v=20260527-1343" alt="Главный экран Goora" width="768" height="468" />
+            <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.png?v=20260529-raster" alt="Главный экран Goora" width="768" height="468" />
           </div>
         </div>
 
@@ -891,7 +896,7 @@
             <p class="body-text">Я добавил возможность выбрать несколько тарифов одновременно. Не все пользователи<br class="desktop-copy-break" />могут быть знакомы с такой механикой, поэтому выбранный тариф не отключает остальные<br class="desktop-copy-break" />варианты. Дополнительно справа показывается количество выбранных тарифов —<br class="desktop-copy-break" />это подсказывает, что можно выбрать больше одного.</p>
             <p class="body-text">Стоимость отображается диапазоном, потому что заказ может уйти сразу в несколько<br class="desktop-copy-break" />тарифов. Финальная цена зависит от того, какой водитель первым примет заказ.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.svg?v=20260527-1343" alt="Настройка поездки Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.png?v=20260529-raster" alt="Настройка поездки Goora" width="768" height="468" />
         </div>
 
         <div class="block">
@@ -902,7 +907,7 @@
             <p class="body-text">Начальная точка становится недоступной для редактирования, потому что поиск уже запущен<br class="desktop-copy-break" />от конкретного адреса. При этом пользователь всё ещё может изменить конечную точку,<br class="desktop-copy-break" />а так же добавить ещё остановки.</p>
             <p class="body-text">Кнопка отмены остаётся доступной, но не перетягивает внимание на себя.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.svg?v=20260527-1403" alt="Поиск водителя Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.png?v=20260529-raster" alt="Поиск водителя Goora" width="768" height="468" />
         </div>
 
         <div class="block">
@@ -914,7 +919,7 @@
             <p class="body-text">Тариф и стоимость тоже становятся актуальными: вместо диапазона показывается<br class="desktop-copy-break" />конкретный тариф и финальная цена.</p>
             <p class="body-text">На карте отображается машина водителя. Это помогает пользователю понять, где сейчас<br class="desktop-copy-break" />находится водитель и как он движется к точке подачи.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.svg?v=20260527-1403" alt="Состояние найденного водителя Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.png?v=20260529-raster" alt="Состояние найденного водителя Goora" width="768" height="468" />
         </div>
 
         <div class="block">
@@ -924,7 +929,7 @@
             <p class="body-text">В панели остаётся вся важная информация: водитель, маршрут, тариф, способ оплаты<br class="desktop-copy-break" />и стоимость. На этом этапе пользователь уже не настраивает заказ, а отслеживает поездку.</p>
             <p class="body-text">Внизу есть кнопка «Пожаловаться». Она не мешает основному сценарию, но остаётся<br class="desktop-copy-break" />доступной на случай, если что‑то идёт не так.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.svg?v=20260527-1403" alt="Состояние поездки Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.png?v=20260529-raster" alt="Состояние поездки Goora" width="768" height="468" />
         </div>
 
         <div class="block">
@@ -933,7 +938,7 @@
             <p class="body-text">Я оставил здесь только самое нужное: информацию о водителе, стоимость поездки, рейтинг,<br class="desktop-copy-break" />поле комментария и кнопку отправки отзыва.</p>
             <p class="body-text">Если пользователь не хочет оставлять отзыв, он может сразу начать новую поездку.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-finish.svg?v=20260527-1403" alt="Завершение поездки Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-finish.png?v=20260529-raster" alt="Завершение поездки Goora" width="768" height="468" />
         </div>
       </section>
 

@@ -42,6 +42,12 @@
     <link rel="preload" href="./assets/fonts/golos-text-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./assets/fonts/golos-text-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./assets/fonts.css" />
+    <script>
+      if (window.matchMedia && window.matchMedia("(pointer: fine)").matches) {
+        document.documentElement.classList.add("has-custom-scrollbar");
+      }
+    </script>
+    <link rel="stylesheet" href="./scrollbar.css?v=20260529-stable" />
     <style>
       html,
       body {
@@ -1059,7 +1065,6 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="./scrollbar.css?v=20260528-mobile" />
     <link rel="stylesheet" href="./back-to-top.css?v=20260527-1323" />
     <link rel="stylesheet" href="./footer-note.css?v=20260527-1331" />
     <link rel="stylesheet" href="./language-toggle.css?v=20260528-hover2" />
@@ -1104,7 +1109,7 @@
         </div>
 
         <div class="placeholder-media" aria-label="Employee Profile Within the System case preview">
-          <img class="placeholder-media__image" src="./assets/profile-top-placeholder-shot.svg?v=20260526-1729" alt="Employee Profile Within the System case preview" width="2866" height="1612">
+          <img class="placeholder-media__image" src="./assets/profile-top-placeholder-shot.png?v=20260529-raster" alt="Employee Profile Within the System case preview" width="2866" height="1612">
         </div>
       </section>
 
@@ -1285,7 +1290,7 @@
             </p>
           </div>
           <div class="placeholder-media placeholder-media--employee-card" aria-label="Sidebar with an employee profile">
-            <img class="placeholder-media__image" src="./assets/profile-sidebar-placeholder-shot.svg?v=20260526-1806" alt="Sidebar with an employee profile" width="2866" height="1604">
+            <img class="placeholder-media__image" src="./assets/profile-sidebar-placeholder-shot.png?v=20260529-raster" alt="Sidebar with an employee profile" width="2866" height="1604">
           </div>
         </div>
 

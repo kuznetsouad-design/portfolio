@@ -42,6 +42,12 @@
     <link rel="preload" href="./assets/fonts/golos-text-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./assets/fonts/golos-text-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./assets/fonts.css" />
+    <script>
+      if (window.matchMedia && window.matchMedia("(pointer: fine)").matches) {
+        document.documentElement.classList.add("has-custom-scrollbar");
+      }
+    </script>
+    <link rel="stylesheet" href="./scrollbar.css?v=20260529-stable" />
     <style>
       html,
       body {
@@ -1129,7 +1135,6 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="./scrollbar.css?v=20260528-mobile" />
     <link rel="stylesheet" href="./back-to-top.css?v=20260527-1323" />
     <link rel="stylesheet" href="./footer-note.css?v=20260527-1331" />
     <link rel="stylesheet" href="./language-toggle.css?v=20260528-hover2" />
@@ -1306,7 +1311,7 @@
           </div>
         </div>
                 <div class="aggregator-swipe-showcase" aria-label="Swipe mode demonstration inside a phone">
-                  <img class="aggregator-swipe-showcase__placeholder" src="./assets/vaiti-swipe-placeholder.svg?v=20260527-1536" alt="" aria-hidden="true" />
+                  <img class="aggregator-swipe-showcase__placeholder" src="./assets/vaiti-swipe-placeholder.png?v=20260529-raster" alt="" aria-hidden="true" />
                   <div class="aggregator-swipe-showcase__phone">
                     <div class="aggregator-swipe-showcase__screen">
                       <video class="aggregator-swipe-showcase__video" autoplay muted loop playsinline preload="auto">
@@ -1547,7 +1552,7 @@
   <div id="ui-kit" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
     <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">UI Kit</div>
     <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The project’s design system was built with a focus on development speed and ease of maintenance. <br class="desktop-copy-break">I did not just assemble a component library; I adapted it to the real needs <br class="desktop-copy-break">of front-end development to prevent misunderstandings during implementation.</div>
-    <img src="./assets/vaiti-ui-kit-2.svg?v=20260527-1304" alt="Vaiti UI Kit" loading="lazy" style="align-self: stretch; width: 100%; height: 445px; border: 1px rgba(227, 227, 227, 0.20) solid; border-radius: 24px; background: #ffffff; object-fit: cover; display: block;">
+    <img src="./assets/vaiti-ui-kit-2.png?v=20260529-raster" alt="Vaiti UI Kit" loading="lazy" style="align-self: stretch; width: 100%; height: 445px; border: 1px rgba(227, 227, 227, 0.20) solid; border-radius: 24px; background: #ffffff; object-fit: cover; display: block;">
     <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
       <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
         <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Base Styles and States</div>

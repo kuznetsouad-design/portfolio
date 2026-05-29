@@ -42,6 +42,12 @@
     <link rel="preload" href="./assets/fonts/golos-text-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./assets/fonts/golos-text-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./assets/fonts.css" />
+    <script>
+      if (window.matchMedia && window.matchMedia("(pointer: fine)").matches) {
+        document.documentElement.classList.add("has-custom-scrollbar");
+      }
+    </script>
+    <link rel="stylesheet" href="./scrollbar.css?v=20260529-stable" />
     <style>
       html,
       body {
@@ -1053,7 +1059,6 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="./scrollbar.css?v=20260528-mobile" />
     <link rel="stylesheet" href="./back-to-top.css?v=20260527-1323" />
     <link rel="stylesheet" href="./footer-note.css?v=20260527-1331" />
     <link rel="stylesheet" href="./language-toggle.css?v=20260528-hover2" />
@@ -1100,7 +1105,7 @@
         <div class="placeholder-media" aria-label="Превью кейса Профиль сотрудника внутри системы">
           <img
             class="placeholder-media__image"
-            src="./assets/profile-top-placeholder-shot.svg?v=20260526-1729"
+            src="./assets/profile-top-placeholder-shot.png?v=20260529-raster"
             alt="Превью кейса Профиль сотрудника внутри системы"
             width="2866"
             height="1612"
@@ -1335,7 +1340,7 @@
           <div class="placeholder-media placeholder-media--employee-card" aria-label="Боковая панель с профилем сотрудника">
             <img
               class="placeholder-media__image"
-              src="./assets/profile-sidebar-placeholder-shot.svg?v=20260526-1806"
+              src="./assets/profile-sidebar-placeholder-shot.png?v=20260529-raster"
               alt="Боковая панель с профилем сотрудника"
               width="2866"
               height="1604"

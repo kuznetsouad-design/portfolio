@@ -42,6 +42,12 @@
     <link rel="preload" href="./assets/fonts/golos-text-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./assets/fonts/golos-text-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./assets/fonts.css" />
+    <script>
+      if (window.matchMedia && window.matchMedia("(pointer: fine)").matches) {
+        document.documentElement.classList.add("has-custom-scrollbar");
+      }
+    </script>
+    <link rel="stylesheet" href="./scrollbar.css?v=20260529-stable" />
     <style>
       html,
       body {
@@ -802,7 +808,6 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="./scrollbar.css?v=20260528-mobile" />
     <link rel="stylesheet" href="./back-to-top.css?v=20260527-1323" />
     <link rel="stylesheet" href="./footer-note.css?v=20260527-1331" />
     <link rel="stylesheet" href="./language-toggle.css?v=20260528-hover2" />
@@ -862,7 +867,7 @@
               <p class="body-text">I&nbsp;split the&nbsp;interface into&nbsp;two parts: the&nbsp;order panel on&nbsp;the left and&nbsp;the map on&nbsp;the right. In&nbsp;the panel, the&nbsp;user enters the&nbsp;route, selects a&nbsp;fare, chooses a&nbsp;payment method, and&nbsp;confirms the&nbsp;order. The&nbsp;map shows the&nbsp;city, nearby cars, and&nbsp;helps users immediately understand the&nbsp;trip context.</p>
               <p class="body-text">The&nbsp;app detects the&nbsp;user’s geolocation and&nbsp;shows the&nbsp;city they&nbsp;are currently in. Even before entering an&nbsp;address, the&nbsp;user sees an&nbsp;approximate fare price, so&nbsp;they can&nbsp;understand the&nbsp;cost in&nbsp;advance.</p>
             </div>
-            <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.svg?v=20260527-1343" alt="Goora main screen" width="768" height="468">
+            <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.png?v=20260529-raster" alt="Goora main screen" width="768" height="468">
           </div>
         </div>
 
@@ -883,7 +888,7 @@
             <p class="body-text">I&nbsp;added the&nbsp;ability to&nbsp;select several fare options at&nbsp;once. Not&nbsp;all users may&nbsp;be familiar with&nbsp;this mechanic, so&nbsp;selecting one fare does&nbsp;not disable the&nbsp;other options. The&nbsp;number of&nbsp;selected fares is&nbsp;also shown on&nbsp;the right — hinting that&nbsp;more than&nbsp;one option can&nbsp;be chosen.</p>
             <p class="body-text">The&nbsp;price is&nbsp;shown as&nbsp;a range because the&nbsp;order can&nbsp;be sent to&nbsp;several fare categories at&nbsp;once. The&nbsp;final price depends on&nbsp;which driver accepts the&nbsp;order first.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.svg?v=20260527-1343" alt="Goora trip setup" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.png?v=20260529-raster" alt="Goora trip setup" width="768" height="468">
         </div>
 
         <div class="block">
@@ -894,7 +899,7 @@
             <p class="body-text">The&nbsp;pickup point becomes unavailable for&nbsp;editing because the&nbsp;search has&nbsp;already started from&nbsp;a&nbsp;specific address. At&nbsp;the same time, the&nbsp;user can&nbsp;still change the&nbsp;destination and&nbsp;add more stops.</p>
             <p class="body-text">The&nbsp;cancel button remains available, but&nbsp;does not&nbsp;pull attention away from&nbsp;the main flow.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.svg?v=20260527-1403" alt="Goora driver search" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.png?v=20260529-raster" alt="Goora driver search" width="768" height="468">
         </div>
 
         <div class="block">
@@ -906,7 +911,7 @@
             <p class="body-text">The&nbsp;fare and&nbsp;price also become final: instead of&nbsp;a range, the&nbsp;interface shows the&nbsp;specific fare and&nbsp;final price.</p>
             <p class="body-text">The&nbsp;driver’s car is&nbsp;shown on&nbsp;the map. This&nbsp;helps the&nbsp;user understand where&nbsp;the driver is&nbsp;right now and&nbsp;how they&nbsp;are moving toward the&nbsp;pickup point.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.svg?v=20260527-1403" alt="Goora driver found state" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.png?v=20260529-raster" alt="Goora driver found state" width="768" height="468">
         </div>
 
         <div class="block">
@@ -916,7 +921,7 @@
             <p class="body-text">All&nbsp;important information remains in&nbsp;the panel: driver, route, fare, payment method, and&nbsp;price. At&nbsp;this&nbsp;stage, the&nbsp;user is&nbsp;no longer configuring the&nbsp;order, but&nbsp;tracking the&nbsp;ride.</p>
             <p class="body-text">There is&nbsp;a “Report an&nbsp;issue” button at&nbsp;the bottom. It&nbsp;does not&nbsp;interfere with&nbsp;the main flow, but&nbsp;remains available in&nbsp;case something goes wrong.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.svg?v=20260527-1403" alt="Goora ride in progress state" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.png?v=20260529-raster" alt="Goora ride in progress state" width="768" height="468">
         </div>
 
         <div class="block">
@@ -925,7 +930,7 @@
             <p class="body-text">I&nbsp;kept only what&nbsp;is necessary here: driver information, trip price, rating, comment field, and&nbsp;the&nbsp;button for&nbsp;submitting feedback.</p>
             <p class="body-text">If&nbsp;the user does&nbsp;not want to&nbsp;leave feedback, they&nbsp;can immediately start a&nbsp;new ride.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-finish.svg?v=20260527-1403" alt="Goora ride completion" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-finish.png?v=20260529-raster" alt="Goora ride completion" width="768" height="468">
         </div>
       </section>
 
