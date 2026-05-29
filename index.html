@@ -242,12 +242,41 @@
         border-radius: 24px;
         object-fit: cover;
         will-change: transform;
+        transform-origin: 50% 50%;
         transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .avatar-meteors-zone.is-avatar-idle-ready:not(.has-avatar-interacted) .avatar-photo {
+        animation: avatar-idle-nudge 5.1s ease-in-out infinite;
       }
 
       .avatar-meteors-zone.is-active .avatar-photo,
       .avatar-meteors-zone:focus-within .avatar-photo {
         transform: rotate(3deg);
+      }
+
+      @keyframes avatar-idle-nudge {
+        0%,
+        7.84%,
+        15.68%,
+        23.52%,
+        31.36%,
+        39.2%,
+        100% {
+          transform: rotate(0deg);
+        }
+
+        3.92%,
+        11.76%,
+        19.6% {
+          transform: rotate(3deg);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .avatar-photo {
+          animation: none;
+        }
       }
 
       .avatar-meteor {
@@ -1042,9 +1071,12 @@
         const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
         const autoHideDelay = 4000;
         const fadeOutDelay = 900;
+        const idleStartDelay = 2000;
         let autoHideTimer = null;
         let fadeOutTimer = null;
+        let idleStartTimer = null;
         let mobileBurstActive = false;
+        let hasAvatarInteracted = false;
 
         if (prefersReducedMotion) {
           return;
@@ -1052,6 +1084,42 @@
 
         const isTouchMode = !supportsHover;
         const meteorCount = isTouchMode ? 30 : 42;
+
+        const markAvatarInteracted = () => {
+          if (hasAvatarInteracted) {
+            return;
+          }
+
+          hasAvatarInteracted = true;
+          window.clearTimeout(idleStartTimer);
+          zone.classList.remove("is-avatar-idle-ready");
+
+          const avatar = zone.querySelector(".avatar-photo");
+
+          if (avatar) {
+            const currentTransform = window.getComputedStyle(avatar).transform;
+            avatar.style.transform = currentTransform === "none" ? "rotate(0deg)" : currentTransform;
+          }
+
+          zone.classList.add("has-avatar-interacted");
+
+          if (avatar) {
+            avatar.getBoundingClientRect();
+            window.requestAnimationFrame(() => {
+              avatar.style.transform = "";
+            });
+          }
+        };
+
+        idleStartTimer = window.setTimeout(() => {
+          if (!hasAvatarInteracted) {
+            zone.classList.add("is-avatar-idle-ready");
+          }
+        }, idleStartDelay);
+
+        if (isTouchMode) {
+          document.addEventListener("pointerdown", markAvatarInteracted, { capture: true, once: true });
+        }
 
         const buildMeteors = () => {
           layer.innerHTML = "";
@@ -1126,8 +1194,12 @@
         };
 
         if (supportsHover) {
-          zone.addEventListener("mouseenter", () => showMeteors());
+          zone.addEventListener("mouseenter", () => {
+            markAvatarInteracted();
+            showMeteors();
+          });
           zone.addEventListener("mouseleave", hideMeteors);
+          zone.addEventListener("focusin", markAvatarInteracted);
         }
 
         zone.addEventListener("pointerdown", (event) => {
