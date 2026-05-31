@@ -858,28 +858,26 @@
               <span>2025</span>
             </div>
           </div>
-          <p class="lead">Designed the&nbsp;core flow of&nbsp;a taxi app: from&nbsp;finding a&nbsp;car to&nbsp;rating a&nbsp;completed ride. Built a&nbsp;clean screen structure so&nbsp;users clearly understand their&nbsp;order status at&nbsp;every stage of&nbsp;the trip.</p>
+          <p class="lead">Designed the&nbsp;core user flow of&nbsp;a taxi app: from&nbsp;finding a&nbsp;car to&nbsp;rating a&nbsp;completed ride. Built a&nbsp;clean screen structure so&nbsp;that at&nbsp;every stage of&nbsp;the trip the&nbsp;user clearly understands the&nbsp;status of&nbsp;their order.</p>
         </div>
 
         <img class="media media--hero" src="./assets/goora-hero.png?v=20260527-1343" alt="Goora interface preview" width="768" height="480">
 
         <div class="block">
-          <h2 class="section-title">Task</h2>
+          <h2 class="section-title">The task</h2>
           <div class="text-stack--large">
-            <p class="body-text">I&nbsp;had to&nbsp;design a&nbsp;web interface for&nbsp;ordering a&nbsp;taxi as&nbsp;part of&nbsp;a <button class="inline-image-trigger" type="button" data-image-modal-trigger="" data-modal-src="./assets/goora-test-task-en.png?v=20260527-2338" data-modal-alt="Goora technical assignment">technical assignment</button> under&nbsp;a tight deadline. I&nbsp;needed to&nbsp;manually build the&nbsp;full component system, set up auto layouts, and&nbsp;define the&nbsp;logic of&nbsp;the main screen.</p>
-            <p class="body-text">I&nbsp;decided to&nbsp;work through not&nbsp;only the&nbsp;main screen, but&nbsp;also the&nbsp;key service states: driver search, driver found, ride in&nbsp;progress, and&nbsp;ride completion.</p>
+            <p class="body-text">The&nbsp;challenge was to&nbsp;design a&nbsp;web interface for&nbsp;a taxi ordering service as&nbsp;part of&nbsp;a <button class="inline-image-trigger" type="button" data-image-modal-trigger="" data-modal-src="./assets/goora-test-task-en.png?v=20260527-2338" data-modal-alt="Goora technical assignment">technical assignment</button> under&nbsp;a tight deadline: components from&nbsp;scratch, auto layouts, logic for&nbsp;the main screen. I&nbsp;went beyond the&nbsp;brief and&nbsp;worked out the&nbsp;entire flow &mdash; from&nbsp;the main screen all&nbsp;the way through to&nbsp;ride completion.</p>
           </div>
         </div>
       </section>
 
       <section class="section">
         <div class="block">
-          <h2 class="section-title">Core flow</h2>
+          <h2 class="section-title">Core user flow</h2>
           <div class="block">
             <div class="text-stack">
               <h3 class="subheading">Main screen</h3>
-              <p class="body-text">I&nbsp;split the&nbsp;interface into&nbsp;two parts: the&nbsp;order panel on&nbsp;the left and&nbsp;the map on&nbsp;the right. In&nbsp;the panel, the&nbsp;user enters the&nbsp;route, selects a&nbsp;fare, chooses a&nbsp;payment method, and&nbsp;confirms the&nbsp;order. The&nbsp;map shows the&nbsp;city, nearby cars, and&nbsp;helps users immediately understand the&nbsp;trip context.</p>
-              <p class="body-text">The&nbsp;app detects the&nbsp;user’s geolocation and&nbsp;shows the&nbsp;city they&nbsp;are currently in. Even before entering an&nbsp;address, the&nbsp;user sees an&nbsp;approximate fare price, so&nbsp;they can&nbsp;understand the&nbsp;cost in&nbsp;advance.</p>
+              <p class="body-text">Order panel on&nbsp;the left, map on&nbsp;the right. Geolocation is&nbsp;detected automatically &mdash; approximate fare prices are visible even before an&nbsp;address is&nbsp;entered.</p>
             </div>
             <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.png?v=20260529-raster" alt="Goora main screen" width="768" height="468">
           </div>
@@ -888,8 +886,7 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">Route input</h3>
-            <p class="body-text">Before typing, the&nbsp;user sees quick actions: select a&nbsp;point on&nbsp;the map or&nbsp;open saved addresses. This&nbsp;is useful when&nbsp;the user does&nbsp;not want to&nbsp;enter an&nbsp;address manually.</p>
-            <p class="body-text">When&nbsp;the user starts typing, address suggestions move to&nbsp;the foreground. Quick actions remain below and&nbsp;become secondary.</p>
+            <p class="body-text">Before typing &mdash; quick actions: pin a&nbsp;point on&nbsp;the map or&nbsp;choose a&nbsp;saved address. Once you&nbsp;start typing, address suggestions come to&nbsp;the foreground and&nbsp;quick actions move down.</p>
           </div>
           <img class="media media--medium" src="./assets/goora-route-input.png" alt="Goora route input" width="768" height="445">
         </div>
@@ -897,21 +894,16 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">Trip setup</h3>
-            <p class="body-text">After selecting the&nbsp;addresses, the&nbsp;user sees the&nbsp;assembled order: route, estimated trip time, fare options, payment, bonuses, and&nbsp;price.</p>
-            <p class="body-text">The&nbsp;“From” and&nbsp;“To” points are shown on&nbsp;the map with&nbsp;address labels. This&nbsp;helps the&nbsp;user visually check the&nbsp;route before ordering and&nbsp;be confident that&nbsp;the trip is&nbsp;being booked to&nbsp;the right locations.</p>
-            <p class="body-text">I&nbsp;added the&nbsp;ability to&nbsp;select several fare options at&nbsp;once. Not&nbsp;all users may&nbsp;be familiar with&nbsp;this mechanic, so&nbsp;selecting one fare does&nbsp;not disable the&nbsp;other options. The&nbsp;number of&nbsp;selected fares is&nbsp;also shown on&nbsp;the right — hinting that&nbsp;more than&nbsp;one option can&nbsp;be chosen.</p>
-            <p class="body-text">The&nbsp;price is&nbsp;shown as&nbsp;a range because the&nbsp;order can&nbsp;be sent to&nbsp;several fare categories at&nbsp;once. The&nbsp;final price depends on&nbsp;which driver accepts the&nbsp;order first.</p>
+            <p class="body-text">After selecting addresses &mdash; a&nbsp;composed order summary: route, fares, payment, bonuses, and&nbsp;price. The&nbsp;route is&nbsp;displayed on&nbsp;the map so&nbsp;you can&nbsp;visually verify the&nbsp;stops.</p>
+            <p class="body-text">Multiple fares can&nbsp;be selected simultaneously. The&nbsp;price is&nbsp;shown as&nbsp;a range &mdash; the&nbsp;final cost depends on&nbsp;which driver accepts the&nbsp;order first.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.png?v=20260529-raster" alt="Goora trip setup" width="768" height="468">
         </div>
 
         <div class="block">
           <div class="text-stack">
-            <h3 class="subheading">Driver search</h3>
-            <p class="body-text">A&nbsp;clear status bar appears at&nbsp;the top of&nbsp;the screen. It&nbsp;shows that&nbsp;the app is&nbsp;currently looking for&nbsp;a&nbsp;car. This&nbsp;is important because the&nbsp;user immediately sees that&nbsp;the app has&nbsp;responded and&nbsp;does not&nbsp;have to&nbsp;worry about the&nbsp;order.</p>
-            <p class="body-text">Order information is&nbsp;reduced to&nbsp;the key parameters: route, selected fares, payment method, and&nbsp;price. The&nbsp;user sees the&nbsp;conditions under&nbsp;which the&nbsp;system is&nbsp;searching for&nbsp;a car.</p>
-            <p class="body-text">The&nbsp;pickup point becomes unavailable for&nbsp;editing because the&nbsp;search has&nbsp;already started from&nbsp;a&nbsp;specific address. At&nbsp;the same time, the&nbsp;user can&nbsp;still change the&nbsp;destination and&nbsp;add more stops.</p>
-            <p class="body-text">The&nbsp;cancel button remains available, but&nbsp;does not&nbsp;pull attention away from&nbsp;the main flow.</p>
+            <h3 class="subheading">Searching for&nbsp;a driver</h3>
+            <p class="body-text">A&nbsp;status bar shows that&nbsp;a search is&nbsp;in progress. The&nbsp;order collapses to&nbsp;its key parameters. The&nbsp;starting point is&nbsp;locked &mdash; the&nbsp;search has&nbsp;already begun &mdash; but&nbsp;the destination and&nbsp;stops can&nbsp;still be&nbsp;changed. The&nbsp;cancel button is&nbsp;accessible but&nbsp;does not&nbsp;compete for&nbsp;attention.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.png?v=20260529-raster" alt="Goora driver search" width="768" height="468">
         </div>
@@ -919,21 +911,15 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">Driver found</h3>
-            <p class="body-text">At&nbsp;this stage, the&nbsp;focus shifts to&nbsp;the car and&nbsp;its arrival time. The&nbsp;status bar updates — the&nbsp;user sees that&nbsp;the car is&nbsp;already on&nbsp;its way and&nbsp;understands how&nbsp;many minutes are left to&nbsp;wait.</p>
-            <p class="body-text">A&nbsp;driver card appears in&nbsp;the panel with&nbsp;the key details: name, rating, number of&nbsp;rides, car model, color, and&nbsp;plate number. Quick actions are also available — call or&nbsp;message the&nbsp;driver.</p>
-            <p class="body-text">Once the&nbsp;driver has&nbsp;been found, the&nbsp;addresses can&nbsp;no longer be changed. The&nbsp;order has&nbsp;been accepted, and&nbsp;the driver is&nbsp;following the&nbsp;selected route.</p>
-            <p class="body-text">The&nbsp;fare and&nbsp;price also become final: instead of&nbsp;a range, the&nbsp;interface shows the&nbsp;specific fare and&nbsp;final price.</p>
-            <p class="body-text">The&nbsp;driver’s car is&nbsp;shown on&nbsp;the map. This&nbsp;helps the&nbsp;user understand where&nbsp;the driver is&nbsp;right now and&nbsp;how they&nbsp;are moving toward the&nbsp;pickup point.</p>
+            <p class="body-text">Focus shifts to&nbsp;the driver and&nbsp;arrival time. A&nbsp;card with&nbsp;name, rating, car, and&nbsp;plate number. Quick actions &mdash; call or&nbsp;message. Addresses are locked, the&nbsp;price range resolves to&nbsp;a final figure.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.png?v=20260529-raster" alt="Goora driver found state" width="768" height="468">
         </div>
 
         <div class="block">
           <div class="text-stack">
-            <h3 class="subheading">In&nbsp;progress</h3>
-            <p class="body-text">The&nbsp;status bar shows that&nbsp;the ride has&nbsp;started and&nbsp;displays the&nbsp;remaining time to&nbsp;the&nbsp;destination. The&nbsp;map shows the&nbsp;car’s current position so&nbsp;the user can&nbsp;check whether the&nbsp;ride is&nbsp;following the&nbsp;route.</p>
-            <p class="body-text">All&nbsp;important information remains in&nbsp;the panel: driver, route, fare, payment method, and&nbsp;price. At&nbsp;this&nbsp;stage, the&nbsp;user is&nbsp;no longer configuring the&nbsp;order, but&nbsp;tracking the&nbsp;ride.</p>
-            <p class="body-text">There is&nbsp;a “Report an&nbsp;issue” button at&nbsp;the bottom. It&nbsp;does not&nbsp;interfere with&nbsp;the main flow, but&nbsp;remains available in&nbsp;case something goes wrong.</p>
+            <h3 class="subheading">En route</h3>
+            <p class="body-text">The&nbsp;status bar shows time remaining; the&nbsp;map tracks the&nbsp;car. All&nbsp;key information stays in&nbsp;the panel. At&nbsp;the bottom &mdash; a&nbsp;&quot;Report an&nbsp;issue&quot; button: unobtrusive but&nbsp;accessible.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.png?v=20260529-raster" alt="Goora ride in progress state" width="768" height="468">
         </div>
@@ -941,18 +927,17 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">Ride completion</h3>
-            <p class="body-text">I&nbsp;kept only what&nbsp;is necessary here: driver information, trip price, rating, comment field, and&nbsp;the&nbsp;button for&nbsp;submitting feedback.</p>
-            <p class="body-text">If&nbsp;the user does&nbsp;not want to&nbsp;leave feedback, they&nbsp;can immediately start a&nbsp;new ride.</p>
+            <p class="body-text">I&nbsp;kept only the&nbsp;essentials here: driver info, trip cost, rating, a&nbsp;comment field, and&nbsp;a submit-review button. Users can&nbsp;skip and&nbsp;start a&nbsp;new trip right away.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-finish.png?v=20260529-raster" alt="Goora ride completion" width="768" height="468">
         </div>
       </section>
 
       <section class="section section--compact">
-        <h2 class="section-title">Outcome</h2>
+        <h2 class="section-title">Conclusion</h2>
         <div class="block">
           <div class="text-stack">
-            <p class="body-text">The&nbsp;project was created under&nbsp;a tight deadline, and&nbsp;it was important for&nbsp;me to&nbsp;deliver a&nbsp;high-quality product. Even though the&nbsp;company I&nbsp;made this&nbsp;assignment for&nbsp;never even looked at&nbsp;the&nbsp;result :), I&nbsp;completed a&nbsp;genuinely interesting task, fulfilled all&nbsp;the requirements, and&nbsp;gained valuable experience.</p>
+            <p class="body-text">The&nbsp;project was built under&nbsp;a tight deadline and&nbsp;delivering a&nbsp;quality result was important to&nbsp;me. Even though the&nbsp;company I&nbsp;completed this&nbsp;assignment for&nbsp;never even looked at&nbsp;it :), I&nbsp;tackled a&nbsp;genuinely interesting challenge, met all&nbsp;the requirements, and&nbsp;gained valuable experience.</p>
           </div>
         </div>
       </section>
