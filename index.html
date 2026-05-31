@@ -1130,10 +1130,6 @@
           }
         }, idleStartDelay);
 
-        if (isTouchMode) {
-          document.addEventListener("pointerdown", markAvatarInteracted, { capture: true, once: true });
-        }
-
         const buildMeteors = () => {
           layer.innerHTML = "";
 
@@ -1220,6 +1216,7 @@
             return;
           }
 
+          markAvatarInteracted();
           mobileBurstActive = true;
           showMeteors(true);
         });
