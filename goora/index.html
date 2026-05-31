@@ -874,8 +874,7 @@
         <div class="block">
           <h2 class="section-title">Задача</h2>
           <div class="text-stack--large">
-            <p class="body-text">Мне предстояло разработать веб-интерфейс для заказа такси в рамках <button class="inline-image-trigger" type="button" data-image-modal-trigger data-modal-src="./assets/goora-test-task.png?v=20260527-1307" data-modal-alt="Техническое задание Goora">технического задания</button><br class="desktop-copy-break" />в условиях жёсткого дедлайна. Нужно было вручную собрать всю систему компонентов,<br class="desktop-copy-break" />настроить автолейауты и выстроить логику главного экрана.</p>
-            <p class="body-text">Я решил проработать не только главный экран, но и ключевые состояния сервиса: поиск<br class="desktop-copy-break" />водителя, найденный водитель, поездка и завершение поездки.</p>
+            <p class="body-text">Предстояло разработать веб-интерфейс для заказа такси в рамках <button class="inline-image-trigger" type="button" data-image-modal-trigger data-modal-src="./assets/goora-test-task.png?v=20260527-1307" data-modal-alt="Техническое задание Goora">технического задания</button> в условиях жёсткого дедлайна: компоненты с нуля, автолейауты, логика главного экрана. Вышел за рамки задания и проработал весь сценарий — от главного экрана до завершения поездки.</p>
           </div>
         </div>
       </section>
@@ -886,8 +885,7 @@
           <div class="block">
             <div class="text-stack">
               <h3 class="subheading">Главный экран</h3>
-              <p class="body-text">Разделил интерфейс на две части: слева находится панель заказа, справа — карта. В панели<br class="desktop-copy-break" />пользователь вводит маршрут, выбирает тариф, способ оплаты и подтверждает заказ.<br class="desktop-copy-break" />Карта показывает город, машины рядом и помогает сразу понять контекст поездки.</p>
-              <p class="body-text">Приложение определяет геопозицию пользователя и показывает город, в котором<br class="desktop-copy-break" />он находится. Даже до ввода адреса пользователь видит примерную стоимость тарифов,<br class="desktop-copy-break" />чтобы заранее сориентироваться по цене.</p>
+              <p class="body-text">Панель заказа слева, карта справа. Геопозиция определяется автоматически — ещё до ввода адреса видна примерная стоимость тарифов.</p>
             </div>
             <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.png?v=20260529-raster" alt="Главный экран Goora" width="768" height="468" />
           </div>
@@ -896,8 +894,7 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">Ввод маршрута</h3>
-            <p class="body-text">До начала ввода пользователь видит быстрые действия: указать точку на карте или открыть<br class="desktop-copy-break" />сохранённые адреса. Это удобно, если пользователь не хочет вводить адрес вручную.</p>
-            <p class="body-text">Когда пользователь начинает печатать, на первое место выходят адресные подсказки.<br class="desktop-copy-break" />Быстрые действия остаются ниже и становятся второстепенными.</p>
+            <p class="body-text">До ввода — быстрые действия: указать точку на карте или выбрать сохранённый адрес. Когда начинаешь печатать, адресные подсказки выходят на первый план, быстрые действия уходят вниз.</p>
           </div>
           <img class="media media--medium" src="./assets/goora-route-input.png" alt="Ввод маршрута Goora" width="768" height="445" />
         </div>
@@ -905,10 +902,8 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">Настройка поездки</h3>
-            <p class="body-text">После выбора адресов пользователь видит собранный заказ: маршрут, примерное время<br class="desktop-copy-break" />поездки, тарифы, оплату, бонусы и стоимость.</p>
-            <p class="body-text">Точки «Откуда» и «Куда» отображаются на карте с подписями адресов. Это помогает<br class="desktop-copy-break" />пользователю визуально проверить маршрут перед заказом и не сомневаться, что поездка<br class="desktop-copy-break" />оформляется в нужные точки.</p>
-            <p class="body-text">Я добавил возможность выбрать несколько тарифов одновременно. Не все пользователи<br class="desktop-copy-break" />могут быть знакомы с такой механикой, поэтому выбранный тариф не отключает остальные<br class="desktop-copy-break" />варианты. Дополнительно справа показывается количество выбранных тарифов —<br class="desktop-copy-break" />это подсказывает, что можно выбрать больше одного.</p>
-            <p class="body-text">Стоимость отображается диапазоном, потому что заказ может уйти сразу в несколько<br class="desktop-copy-break" />тарифов. Финальная цена зависит от того, какой водитель первым примет заказ.</p>
+            <p class="body-text">После выбора адресов — собранный заказ: маршрут, тарифы, оплата, бонусы и стоимость. Маршрут отображается на карте — можно визуально проверить точки.</p>
+            <p class="body-text">Можно выбрать несколько тарифов одновременно. Стоимость показывается диапазоном — финальная цена зависит от того, какой водитель примет заказ первым.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.png?v=20260529-raster" alt="Настройка поездки Goora" width="768" height="468" />
         </div>
@@ -916,10 +911,7 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">Поиск водителя</h3>
-            <p class="body-text">В верхней части экрана появляется понятная строка статуса. Она показывает, что сейчас идёт<br class="desktop-copy-break" />поиск машины. Это важно, чтобы пользователь сразу видел реакцию приложения<br class="desktop-copy-break" />и не переживал за свой заказ.</p>
-            <p class="body-text">Информация о заказе сворачивается до основных параметров: маршрут, выбранные тарифы,<br class="desktop-copy-break" />способ оплаты и стоимость. Пользователь видит, на каких условиях система ищет<br class="desktop-copy-break" />ему автомобиль.</p>
-            <p class="body-text">Начальная точка становится недоступной для редактирования, потому что поиск уже запущен<br class="desktop-copy-break" />от конкретного адреса. При этом пользователь всё ещё может изменить конечную точку,<br class="desktop-copy-break" />а так же добавить ещё остановки.</p>
-            <p class="body-text">Кнопка отмены остаётся доступной, но не перетягивает внимание на себя.</p>
+            <p class="body-text">Строка статуса показывает, что идёт поиск. Заказ сворачивается до основных параметров. Начальная точка блокируется — поиск уже запущен, но конечную точку и остановки ещё можно изменить. Кнопка отмены доступна, но не перетягивает внимание.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.png?v=20260529-raster" alt="Поиск водителя Goora" width="768" height="468" />
         </div>
@@ -927,11 +919,7 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">Водитель найден</h3>
-            <p class="body-text">На этом этапе фокус внимания переключается на машину и время её приезда. Строка статуса<br class="desktop-copy-break" />обновляется — пользователь видит, что машина уже в пути, и понимает, сколько минут<br class="desktop-copy-break" />осталось ждать.</p>
-            <p class="body-text">В панели появляется карточка водителя с основной информацией: имя, рейтинг, количество<br class="desktop-copy-break" />поездок, модель машины, цвет и номер. Также доступны быстрые действия — позвонить<br class="desktop-copy-break" />или написать водителю.</p>
-            <p class="body-text">После того как водитель найден, адреса уже нельзя изменить. Заказ принят, водитель едет<br class="desktop-copy-break" />по выбранному маршруту.</p>
-            <p class="body-text">Тариф и стоимость тоже становятся актуальными: вместо диапазона показывается<br class="desktop-copy-break" />конкретный тариф и финальная цена.</p>
-            <p class="body-text">На карте отображается машина водителя. Это помогает пользователю понять, где сейчас<br class="desktop-copy-break" />находится водитель и как он движется к точке подачи.</p>
+            <p class="body-text">Фокус переключается на водителя и время приезда. Карточка с именем, рейтингом, машиной и номером. Быстрые действия — позвонить или написать. Адреса заблокированы, стоимость из диапазона становится финальной.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.png?v=20260529-raster" alt="Состояние найденного водителя Goora" width="768" height="468" />
         </div>
@@ -939,9 +927,7 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">В пути</h3>
-            <p class="body-text">Статус-бар показывает, что поездка началась, и выводит оставшееся время до места<br class="desktop-copy-break" />назначения. Карта отображает текущее положение машины, чтобы пользователь мог следить,<br class="desktop-copy-break" />едет ли поездка по маршруту.</p>
-            <p class="body-text">В панели остаётся вся важная информация: водитель, маршрут, тариф, способ оплаты<br class="desktop-copy-break" />и стоимость. На этом этапе пользователь уже не настраивает заказ, а отслеживает поездку.</p>
-            <p class="body-text">Внизу есть кнопка «Пожаловаться». Она не мешает основному сценарию, но остаётся<br class="desktop-copy-break" />доступной на случай, если что‑то идёт не так.</p>
+            <p class="body-text">Статус-бар показывает оставшееся время, карта следит за машиной. Вся важная информация остаётся в панели. Внизу — кнопка «Пожаловаться»: не мешает, но доступна.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.png?v=20260529-raster" alt="Состояние поездки Goora" width="768" height="468" />
         </div>
@@ -949,8 +935,7 @@
         <div class="block">
           <div class="text-stack">
             <h3 class="subheading">Завершение поездки</h3>
-            <p class="body-text">Я оставил здесь только самое нужное: информацию о водителе, стоимость поездки, рейтинг,<br class="desktop-copy-break" />поле комментария и кнопку отправки отзыва.</p>
-            <p class="body-text">Если пользователь не хочет оставлять отзыв, он может сразу начать новую поездку.</p>
+            <p class="body-text">Я оставил здесь только самое нужное: информацию о водителе, стоимость поездки, рейтинг, поле комментария и кнопку отправки отзыва. Можно пропустить и сразу начать новую поездку.</p>
           </div>
           <img class="media media--large media--goora-screen" src="./assets/goora-finish.png?v=20260529-raster" alt="Завершение поездки Goora" width="768" height="468" />
         </div>
@@ -960,7 +945,7 @@
         <h2 class="section-title">Итог</h2>
         <div class="block">
           <div class="text-stack">
-            <p class="body-text">Проект создавался в жёстких рамках дедлайна, и мне было важно выдать качественный<br class="desktop-copy-break" />продукт. Несмотря на то, что компания, для которой делал <span class="mobile-nowrap">это задание</span>, на результат<br class="desktop-copy-break" />даже не посмотрела :), я выполнил действительно интересную задачу, реализовал<br class="desktop-copy-break" />все требования и приобрёл хороший опыт.</p>
+            <p class="body-text">Проект создавался в жёстких рамках дедлайна, мне было важно выдать качественный результат. Несмотря на то, что компания, для которой я делал <span class="mobile-nowrap">это задание</span>, на результат даже не посмотрела :), я выполнил действительно интересную задачу, реализовал все требования и приобрёл хороший опыт.</p>
           </div>
         </div>
       </section>
@@ -996,24 +981,21 @@
     <script>
       (function () {
         const mobileQuery = window.matchMedia("(max-width: 820px)");
-        let typographyApplied = false;
+        let mobileBreaksApplied = false;
 
-        function applyMobileTypography() {
-          if (typographyApplied || !mobileQuery.matches) {
-            return;
-          }
-
+        function applyTypography() {
           const root = document.querySelector(".case-page");
 
           if (!root) {
             return;
           }
 
-          typographyApplied = true;
-
-          document.querySelectorAll("br.desktop-copy-break").forEach(function (node) {
-            node.replaceWith(document.createTextNode(" "));
-          });
+          if (!mobileBreaksApplied && mobileQuery.matches) {
+            mobileBreaksApplied = true;
+            document.querySelectorAll("br.desktop-copy-break").forEach(function (node) {
+              node.replaceWith(document.createTextNode(" "));
+            });
+          }
 
           const excludedSelector = ".site-header, .language-toggle, .header-nav, .brand, .image-modal";
           const gluedWords = [
@@ -1075,12 +1057,12 @@
           });
         }
 
-        applyMobileTypography();
+        applyTypography();
 
         if (mobileQuery.addEventListener) {
-          mobileQuery.addEventListener("change", applyMobileTypography);
+          mobileQuery.addEventListener("change", applyTypography);
         } else {
-          mobileQuery.addListener(applyMobileTypography);
+          mobileQuery.addListener(applyTypography);
         }
       }());
     </script>
