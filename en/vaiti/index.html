@@ -82,6 +82,34 @@
         width: 100%;
       }
 
+      .case-page .controlled-video,
+      .case-page video[style*="height: 598px"],
+      .case-page video[style*="height: 554px"],
+      .case-page img[style*="height: 554px"],
+      .case-page [data-background="On"][data-frame="On"],
+      .case-page .aggregator-swipe-showcase {
+        align-self: center !important;
+        width: min(956px, calc(100vw - 48px)) !important;
+        max-width: none !important;
+      }
+
+      .case-page video[style*="height: 598px"] {
+        height: auto !important;
+        aspect-ratio: 956 / 598;
+      }
+
+      .case-page video[style*="height: 554px"],
+      .case-page img[style*="height: 554px"],
+      .case-page .aggregator-swipe-showcase {
+        height: auto !important;
+        aspect-ratio: 956 / 554;
+      }
+
+      .case-page [data-background="On"][data-frame="On"] {
+        height: auto !important;
+        aspect-ratio: 956 / 487;
+      }
+
       .controlled-video video {
         cursor: pointer;
       }
@@ -422,7 +450,7 @@
 
       .aggregator-swipe-showcase {
         align-self: stretch;
-        height: 445px;
+        height: 554px;
         position: relative;
         overflow: hidden;
         border-radius: 24px;
@@ -444,7 +472,7 @@
       .aggregator-swipe-showcase__phone {
         position: relative;
         z-index: 1;
-        width: 189px;
+        width: 24.61%;
         aspect-ratio: 189 / 386;
         filter: drop-shadow(0 22px 48px rgba(15, 23, 42, 0.14));
       }
@@ -544,9 +572,9 @@
       }
 
       .case-pagination__label {
-        color: #767676;
+        color: #4B5563;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 500;
         line-height: 20px;
       }
 
@@ -564,7 +592,9 @@
         flex-direction: column;
         gap: 19px;
         border-radius: 24px;
-        background: #f2f2f2;
+        outline: 1px #E3E3E3 solid;
+        outline-offset: -1px;
+        background: #F7F7F7;
         color: inherit;
         text-decoration: none;
       }
@@ -604,7 +634,7 @@
       .case-pagination__pill {
         padding: 6px 12px;
         border-radius: 999px;
-        background: rgba(15, 23, 42, 0.06);
+        background: #F0F0F0;
         color: #334155;
         font-size: 14px;
         font-weight: 500;
@@ -628,25 +658,26 @@
       .case-pagination__link {
         box-sizing: border-box;
         position: relative;
-        padding: 24px 72px 24px 24px;
+        padding: 32px 72px 32px 32px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
-        border-radius: 12px;
-        background: #f2f2f2;
-        border: 1px solid rgba(15, 23, 42, 0.06);
+        gap: 19px;
+        border-radius: 24px;
+        outline: 1px #E3E3E3 solid;
+        outline-offset: -1px;
+        background: #F7F7F7;
         color: inherit;
         text-decoration: none;
         transition:
           background-color 160ms ease,
-          border-color 160ms ease;
+          outline-color 160ms ease;
       }
 
       .case-pagination__link:hover,
       .case-pagination__link:focus-visible {
-        background: #efefef;
-        border-color: rgba(15, 23, 42, 0.1);
+        background: #FAFAFA;
+        outline-color: #EFEFEF;
       }
 
       .case-pagination__label {
@@ -691,9 +722,9 @@
       }
 
       .case-pagination__pill {
-        padding: 4px 12px;
+        padding: 6px 12px;
         border-radius: 999px;
-        background: rgba(15, 23, 42, 0.06);
+        background: #F0F0F0;
         color: #334155;
         font-size: 14px;
         font-weight: 500;
@@ -856,7 +887,7 @@
 
         .aggregator-swipe-showcase {
           height: auto;
-          aspect-ratio: 768 / 445;
+          aspect-ratio: 956 / 554;
         }
 
         .aggregator-swipe-showcase__phone {
@@ -1017,8 +1048,16 @@
           line-height: 20px !important;
         }
 
-        .case-page video[style*="height: 480px"],
-        .case-page video[style*="height: 445px"] {
+        .case-page .controlled-video,
+        .case-page .aggregator-swipe-showcase,
+        .case-page [data-background="On"][data-frame="On"] {
+          align-self: stretch !important;
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+
+        .case-page video[style*="height: 598px"],
+        .case-page video[style*="height: 554px"] {
           width: 100% !important;
           height: auto !important;
           max-height: none !important;
@@ -1027,7 +1066,7 @@
           background: #f2f2f2 !important;
         }
 
-        .case-page img[style*="height: 445px"] {
+        .case-page img[style*="height: 554px"] {
           width: 100% !important;
           height: auto !important;
           border-radius: 18px !important;
@@ -1036,7 +1075,7 @@
 
         .case-page [data-background="On"][data-frame="On"] {
           height: auto !important;
-          aspect-ratio: 768 / 391;
+          aspect-ratio: 956 / 487;
           border-radius: 18px !important;
         }
 
@@ -1045,7 +1084,7 @@
         }
 
         .aggregator-swipe-showcase {
-          height: 360px;
+          height: 360px !important;
           aspect-ratio: auto;
           border-radius: 18px;
         }
@@ -1085,8 +1124,11 @@
 
         .case-pagination__link {
           padding: 20px 56px 20px 20px;
-          border-radius: 20px;
+          border-radius: 24px;
+        outline: 1px #E3E3E3 solid;
+        outline-offset: -1px;
           gap: 14px;
+        background: #F7F7F7;
         }
 
         .case-pagination__label {
@@ -1128,7 +1170,7 @@
         }
 
         .aggregator-swipe-showcase {
-          height: 340px;
+          height: 340px !important;
         }
 
         .aggregator-swipe-showcase__phone {
@@ -1222,7 +1264,7 @@
         </div>
         <div style="align-self: stretch"><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word">Designed from&nbsp;scratch </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">the interfaces and&nbsp;logic</span><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word"> of&nbsp;a career service, combining </span><br class="desktop-copy-break"><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">job search, company catalog, interview trainer </span><br class="desktop-copy-break"><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 400; line-height: 28px; word-wrap: break-word">and </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">tools</span><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word"> into a&nbsp;single workspace. Built a&nbsp;unified </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">design system</span><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word"> that tied the services together and prepared the product for </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">rapid launch</span><span style="color: #4B5563; font-size: 18px; font-family: Inter; font-weight: 500; line-height: 28px; word-wrap: break-word"> and further </span><span style="color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 28px; word-wrap: break-word">growth.</span></div>
       </div>
-      <video style="align-self: stretch; width: 100%; height: 480px; border-radius: 24px; object-fit: cover; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="auto"><source src="./assets/vaiti-preview.webm" type="video/webm"></video>
+      <video style="align-self: stretch; width: 100%; height: 598px; border-radius: 24px; object-fit: cover; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="auto"><source src="./assets/vaiti-preview.webm" type="video/webm"></video>
     </div>
     <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 64px; display: flex">
       <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
@@ -1245,7 +1287,7 @@
     <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
       <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">Research</div>
       <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
-        <div data-background="On" data-frame="On" style="align-self: stretch; height: 391px; position: relative; background: #EDF0F7; overflow: hidden; border-radius: 24px; outline: 1px rgba(227, 227, 227, 0.20) solid; outline-offset: -1px">
+        <div data-background="On" data-frame="On" style="align-self: stretch; height: 487px; position: relative; background: #EDF0F7; overflow: hidden; border-radius: 24px; outline: 1px rgba(227, 227, 227, 0.20) solid; outline-offset: -1px">
         <img src="./assets/vaiti-research.png" alt="Vaiti research screen" style="width: 100%; height: 100%; object-fit: fill; object-position: center; display: block;">
         </div>
         <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
@@ -1274,7 +1316,7 @@
     </div>
     <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: center; gap: 16px; display: flex">
       <div class="controlled-video" data-video-control>
-        <video style="align-self: stretch; width: 100%; height: 480px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" poster="./assets/vaiti-aggregator-poster.png?v=20260529-0322" autoplay="" muted="" loop="" playsinline="" preload="auto">
+        <video style="align-self: stretch; width: 100%; height: 598px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" poster="./assets/vaiti-aggregator-poster.png?v=20260529-0322" autoplay="" muted="" loop="" playsinline="" preload="auto">
           <source src="./assets/vaiti-aggregator-20260511-1222.mp4?v=20260527-1416" type="video/mp4">
         </video>
         <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
@@ -1301,7 +1343,7 @@
           </div>
           <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
             <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Shortlist and compromise</div>
-            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The business wanted the&nbsp;shortlist to&nbsp;be the&nbsp;only path to&nbsp;applying. But auto-apply didn't work everywhere &mdash; for&nbsp;most users it&nbsp;was a&nbsp;dead end. I&nbsp;proposed making &quot;apply at&nbsp;source&quot; the&nbsp;primary action and&nbsp;the shortlist a&nbsp;secondary one. We&nbsp;landed on&nbsp;this solution.</div>
+            <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The business wanted to make the short-list the only way to apply. The plan was for users to save a job, go to the list, and trigger auto-apply. However, this feature only worked through plugins and integrations, which would lead most people into a dead end. I suggested keeping the direct apply button as the main action, and making the short-list an extra option for those who want to collect jobs and apply all at once. We agreed on this solution.</div>
           </div>
           <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
             <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Job detail page</div>
@@ -1343,7 +1385,7 @@
       <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">There was no&nbsp;company catalog in&nbsp;the product &mdash; just a&nbsp;<button type="button" class="inline-image-trigger" data-image-modal-trigger="" data-modal-src="./assets/vaiti-companies-logos-map.png" data-modal-alt="IT market map">set of logos,</button> grouped by&nbsp;category. I&nbsp;rebuilt it&nbsp;into a&nbsp;full-featured section with&nbsp;cards, filters, and&nbsp;search.</div>
     </div>
     <div class="controlled-video" data-video-control>
-      <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+      <video style="align-self: stretch; width: 100%; height: 554px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
         <source src="./assets/vaiti-companies-20260511-1213.mp4" type="video/mp4">
       </video>
       <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
@@ -1390,7 +1432,7 @@
         </div>
       </div>
       <div class="controlled-video" data-video-control>
-        <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+        <video style="align-self: stretch; width: 100%; height: 554px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
           <source src="./assets/vaiti-competencies-20260511-1933.mp4" type="video/mp4">
         </video>
         <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
@@ -1439,7 +1481,7 @@
       </div>
     </div>
     <div class="controlled-video" data-video-control>
-      <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+      <video style="align-self: stretch; width: 100%; height: 554px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
         <source src="./assets/vaiti-interview-prep-20260513-1251.mp4" type="video/mp4">
       </video>
       <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
@@ -1477,7 +1519,7 @@
       <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section removes the&nbsp;routine from&nbsp;the job application process. The&nbsp;interface's primary goal is&nbsp;to help candidates craft a&nbsp;text that perfectly connects their experience to&nbsp;the requirements of&nbsp;a specific job &mdash; in&nbsp;just a&nbsp;couple of&nbsp;clicks.</div>
     </div>
     <div class="controlled-video" data-video-control>
-      <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+      <video style="align-self: stretch; width: 100%; height: 554px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
         <source src="./assets/vaiti-cover-letter-20260513-1411.mp4" type="video/mp4">
       </video>
       <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
@@ -1513,7 +1555,7 @@
       <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">This section helps candidates find errors in&nbsp;their resumes and&nbsp;fix them. It&nbsp;allows users to&nbsp;refine their resume so&nbsp;it passes automated screeners and&nbsp;appeals to&nbsp;real HR managers &mdash; while giving users control over which changes to&nbsp;accept.</div>
     </div>
     <div class="controlled-video" data-video-control>
-      <video style="align-self: stretch; width: 100%; height: 445px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
+      <video style="align-self: stretch; width: 100%; height: 554px; border-radius: 24px; object-fit: cover; object-position: center top; background: #D9D9D9; display: block;" autoplay="" muted="" loop="" playsinline="" preload="metadata">
         <source src="./assets/vaiti-resume-improvement-20260513-2301.mp4" type="video/mp4">
       </video>
       <button class="video-toggle" type="button" data-video-toggle aria-label="Pause video">
@@ -1554,7 +1596,7 @@
   <div id="ui-kit" class="case-section-anchor" style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex">
     <div style="align-self: stretch; color: #0F0F0F; font-size: 28px; font-family: Inter; font-weight: 600; line-height: 36px; word-wrap: break-word">UI Kit</div>
     <div style="align-self: stretch; color: #4B5563; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 26px; word-wrap: break-word">The project's design system was built with&nbsp;an emphasis on&nbsp;development speed and&nbsp;ease of&nbsp;maintenance. Components are adapted for&nbsp;the frontend to&nbsp;eliminate misunderstandings during implementation.</div>
-    <img src="./assets/vaiti-ui-kit-2.png?v=20260529-raster" alt="Vaiti UI Kit" loading="lazy" style="align-self: stretch; width: 100%; height: 445px; border: 1px rgba(227, 227, 227, 0.20) solid; border-radius: 24px; background: #ffffff; object-fit: cover; display: block;">
+    <img src="./assets/vaiti-ui-kit-3.svg?v=20260605" alt="Vaiti UI Kit" loading="lazy" style="align-self: stretch; width: 100%; height: 554px; border: 1px rgba(227, 227, 227, 0.20) solid; border-radius: 24px; background: #ffffff; object-fit: cover; display: block;">
     <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
       <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: flex">
         <div style="align-self: stretch; color: #0F0F0F; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 24px; word-wrap: break-word">Base styles and states</div>
@@ -2123,7 +2165,6 @@
     <script src="./back-to-top.js?v=20260527-1242"></script>
 </body>
 </html>
-
 
 
 

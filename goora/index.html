@@ -305,8 +305,10 @@
       }
 
       .media {
-        align-self: stretch;
-        width: 100%;
+        align-self: center;
+        width: min(956px, calc(100vw - 48px));
+        max-width: none;
+        height: auto;
         object-fit: cover;
         background: transparent;
         border: 0;
@@ -314,18 +316,18 @@
       }
 
       .media--hero {
-        height: 480px;
+        aspect-ratio: 956 / 598;
         border-radius: 24px;
       }
 
       .media--large {
-        height: 468px;
+        aspect-ratio: 956 / 582;
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       .media--medium {
-        height: 445px;
+        aspect-ratio: 956 / 554;
         border-radius: 24px;
       }
 
@@ -346,9 +348,9 @@
       }
 
       .case-pagination__label {
-        color: #767676;
+        color: #4B5563;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 500;
         line-height: 20px;
       }
 
@@ -366,7 +368,9 @@
         flex-direction: column;
         gap: 19px;
         border-radius: 24px;
-        background: #f2f2f2;
+        outline: 1px #E3E3E3 solid;
+        outline-offset: -1px;
+        background: #F7F7F7;
         color: inherit;
         text-decoration: none;
       }
@@ -406,7 +410,7 @@
       .case-pagination__pill {
         padding: 6px 12px;
         border-radius: 999px;
-        background: rgba(15, 23, 42, 0.06);
+        background: #F0F0F0;
         color: #334155;
         font-size: 14px;
         font-weight: 500;
@@ -430,25 +434,26 @@
       .case-pagination__link {
         box-sizing: border-box;
         position: relative;
-        padding: 24px 72px 24px 24px;
+        padding: 32px 72px 32px 32px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
-        border-radius: 12px;
-        background: #f2f2f2;
-        border: 1px solid rgba(15, 23, 42, 0.06);
+        gap: 19px;
+        border-radius: 24px;
+        outline: 1px #E3E3E3 solid;
+        outline-offset: -1px;
+        background: #F7F7F7;
         color: inherit;
         text-decoration: none;
         transition:
           background-color 160ms ease,
-          border-color 160ms ease;
+          outline-color 160ms ease;
       }
 
       .case-pagination__link:hover,
       .case-pagination__link:focus-visible {
-        background: #efefef;
-        border-color: rgba(15, 23, 42, 0.1);
+        background: #FAFAFA;
+        outline-color: #EFEFEF;
       }
 
       .case-pagination__label {
@@ -493,9 +498,9 @@
       }
 
       .case-pagination__pill {
-        padding: 4px 12px;
+        padding: 6px 12px;
         border-radius: 999px;
-        background: rgba(15, 23, 42, 0.06);
+        background: #F0F0F0;
         color: #334155;
         font-size: 14px;
         font-weight: 500;
@@ -706,6 +711,9 @@
         }
 
         .media {
+          align-self: stretch;
+          width: 100%;
+          max-width: 100%;
           object-fit: contain;
           background: #f2f2f2;
           border-radius: 18px;
@@ -713,7 +721,7 @@
 
         .media--hero {
           height: auto;
-          aspect-ratio: 768 / 480;
+          aspect-ratio: 956 / 598;
           object-fit: cover;
           object-position: center;
           background: transparent;
@@ -721,7 +729,7 @@
 
         .media--large {
           height: auto;
-          aspect-ratio: 768 / 468;
+          aspect-ratio: 956 / 582;
           box-shadow: none;
         }
 
@@ -731,7 +739,7 @@
 
         .media--medium {
           height: auto;
-          aspect-ratio: 768 / 445;
+          aspect-ratio: 956 / 554;
         }
 
         .case-pagination {
@@ -755,8 +763,11 @@
 
         .case-pagination__link {
           padding: 20px 56px 20px 20px;
-          border-radius: 20px;
+          border-radius: 24px;
+        outline: 1px #E3E3E3 solid;
+        outline-offset: -1px;
           gap: 14px;
+        background: #F7F7F7;
         }
 
         .case-pagination__label {
@@ -866,10 +877,10 @@
               <span>2025</span>
             </div>
           </div>
-          <p class="lead">Спроектировал основной сценарий приложения такси: от поиска машины до оценки<br class="desktop-copy-break" />завершённой поездки. Выстроил чистую структуру экранов, чтобы человек<br class="desktop-copy-break" />на каждом этапе поездки чётко понимал статус своего заказа.</p>
+          <p class="lead">&#1057;&#1087;&#1088;&#1086;&#1077;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1083; &#1086;&#1089;&#1085;&#1086;&#1074;&#1085;&#1086;&#1081; &#1089;&#1094;&#1077;&#1085;&#1072;&#1088;&#1080;&#1081; &#1087;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1103; &#1090;&#1072;&#1082;&#1089;&#1080;: &#1086;&#1090; &#1087;&#1086;&#1080;&#1089;&#1082;&#1072; &#1084;&#1072;&#1096;&#1080;&#1085;&#1099;<br class="desktop-copy-break" />&#1076;&#1086; &#1086;&#1094;&#1077;&#1085;&#1082;&#1080; &#1079;&#1072;&#1074;&#1077;&#1088;&#1096;&#1105;&#1085;&#1085;&#1086;&#1081; &#1087;&#1086;&#1077;&#1079;&#1076;&#1082;&#1080;. &#1042;&#1099;&#1089;&#1090;&#1088;&#1086;&#1080;&#1083; &#1095;&#1080;&#1089;&#1090;&#1091;&#1102; &#1089;&#1090;&#1088;&#1091;&#1082;&#1090;&#1091;&#1088;&#1091; &#1101;&#1082;&#1088;&#1072;&#1085;&#1086;&#1074;, &#1095;&#1090;&#1086;&#1073;&#1099;<br class="desktop-copy-break" />&#1095;&#1077;&#1083;&#1086;&#1074;&#1077;&#1082; &#1085;&#1072; &#1082;&#1072;&#1078;&#1076;&#1086;&#1084; &#1101;&#1090;&#1072;&#1087;&#1077; &#1087;&#1086;&#1077;&#1079;&#1076;&#1082;&#1080; &#1095;&#1105;&#1090;&#1082;&#1086; &#1087;&#1086;&#1085;&#1080;&#1084;&#1072;&#1083; &#1089;&#1090;&#1072;&#1090;&#1091;&#1089; &#1089;&#1074;&#1086;&#1077;&#1075;&#1086; &#1079;&#1072;&#1082;&#1072;&#1079;&#1072;.</p>
         </div>
 
-        <img class="media media--hero" src="./assets/goora-hero.png?v=20260527-1343" alt="Превью интерфейса Goora" width="768" height="480" />
+        <img class="media media--hero" src="./assets/goora-hero.png?v=20260527-1343" alt="Превью интерфейса Goora" width="956" height="598" />
 
         <div class="block">
           <h2 class="section-title">Задача</h2>
@@ -887,7 +898,7 @@
               <h3 class="subheading">Главный экран</h3>
               <p class="body-text">Панель заказа слева, карта справа. Геопозиция определяется автоматически — ещё до ввода адреса видна примерная стоимость тарифов.</p>
             </div>
-            <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.png?v=20260529-raster" alt="Главный экран Goora" width="768" height="468" />
+            <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.svg?v=20260605-svg" alt="Главный экран Goora" width="956" height="582" />
           </div>
         </div>
 
@@ -896,7 +907,7 @@
             <h3 class="subheading">Ввод маршрута</h3>
             <p class="body-text">До ввода — быстрые действия: указать точку на карте или выбрать сохранённый адрес. Когда начинаешь печатать, адресные подсказки выходят на первый план, быстрые действия уходят вниз.</p>
           </div>
-          <img class="media media--medium" src="./assets/goora-route-input.png" alt="Ввод маршрута Goora" width="768" height="445" />
+          <img class="media media--medium" src="./assets/goora-route-input.png" alt="Ввод маршрута Goora" width="956" height="554" />
         </div>
 
         <div class="block">
@@ -905,7 +916,7 @@
             <p class="body-text">После выбора адресов — собранный заказ: маршрут, тарифы, оплата, бонусы и стоимость. Маршрут отображается на карте — можно визуально проверить точки.</p>
             <p class="body-text">Можно выбрать несколько тарифов одновременно. Стоимость показывается диапазоном — финальная цена зависит от того, какой водитель примет заказ первым.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.png?v=20260529-raster" alt="Настройка поездки Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.svg?v=20260605-svg" alt="Настройка поездки Goora" width="956" height="582" />
         </div>
 
         <div class="block">
@@ -913,7 +924,7 @@
             <h3 class="subheading">Поиск водителя</h3>
             <p class="body-text">Строка статуса показывает, что идёт поиск. Заказ сворачивается до основных параметров. Начальная точка блокируется — поиск уже запущен, но конечную точку и остановки ещё можно изменить. Кнопка отмены доступна, но не перетягивает внимание.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.png?v=20260529-raster" alt="Поиск водителя Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.svg?v=20260605-svg" alt="Поиск водителя Goora" width="956" height="582" />
         </div>
 
         <div class="block">
@@ -921,7 +932,7 @@
             <h3 class="subheading">Водитель найден</h3>
             <p class="body-text">Фокус переключается на водителя и время приезда. Карточка с именем, рейтингом, машиной и номером. Быстрые действия — позвонить или написать. Адреса заблокированы, стоимость из диапазона становится финальной.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.png?v=20260529-raster" alt="Состояние найденного водителя Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.svg?v=20260605-svg" alt="Состояние найденного водителя Goora" width="956" height="582" />
         </div>
 
         <div class="block">
@@ -929,7 +940,7 @@
             <h3 class="subheading">В пути</h3>
             <p class="body-text">Статус-бар показывает оставшееся время, карта следит за машиной. Вся важная информация остаётся в панели. Внизу — кнопка «Пожаловаться»: не мешает, но доступна.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.png?v=20260529-raster" alt="Состояние поездки Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.svg?v=20260605-svg" alt="Состояние поездки Goora" width="956" height="582" />
         </div>
 
         <div class="block">
@@ -937,7 +948,7 @@
             <h3 class="subheading">Завершение поездки</h3>
             <p class="body-text">Я оставил здесь только самое нужное: информацию о водителе, стоимость поездки, рейтинг, поле комментария и кнопку отправки отзыва. Можно пропустить и сразу начать новую поездку.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-finish.png?v=20260529-raster" alt="Завершение поездки Goora" width="768" height="468" />
+          <img class="media media--large media--goora-screen" src="./assets/goora-finish.svg?v=20260605-svg" alt="Завершение поездки Goora" width="956" height="582" />
         </div>
       </section>
 
@@ -1152,7 +1163,6 @@
     <script src="./back-to-top.js?v=20260527-1242"></script>
   </body>
 </html>
-
 
 
 

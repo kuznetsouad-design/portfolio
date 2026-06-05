@@ -305,8 +305,10 @@
       }
 
       .media {
-        align-self: stretch;
-        width: 100%;
+        align-self: center;
+        width: min(956px, calc(100vw - 48px));
+        max-width: none;
+        height: auto;
         object-fit: cover;
         background: transparent;
         border: 0;
@@ -314,18 +316,18 @@
       }
 
       .media--hero {
-        height: 480px;
+        aspect-ratio: 956 / 598;
         border-radius: 24px;
       }
 
       .media--large {
-        height: 468px;
+        aspect-ratio: 956 / 582;
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       .media--medium {
-        height: 445px;
+        aspect-ratio: 956 / 554;
         border-radius: 24px;
       }
 
@@ -346,9 +348,9 @@
       }
 
       .case-pagination__label {
-        color: #767676;
+        color: #4B5563;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 500;
         line-height: 20px;
       }
 
@@ -366,7 +368,9 @@
         flex-direction: column;
         gap: 19px;
         border-radius: 24px;
-        background: #f2f2f2;
+        outline: 1px #E3E3E3 solid;
+        outline-offset: -1px;
+        background: #F7F7F7;
         color: inherit;
         text-decoration: none;
       }
@@ -406,7 +410,7 @@
       .case-pagination__pill {
         padding: 6px 12px;
         border-radius: 999px;
-        background: rgba(15, 23, 42, 0.06);
+        background: #F0F0F0;
         color: #334155;
         font-size: 14px;
         font-weight: 500;
@@ -430,25 +434,26 @@
       .case-pagination__link {
         box-sizing: border-box;
         position: relative;
-        padding: 24px 72px 24px 24px;
+        padding: 32px 72px 32px 32px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
-        border-radius: 12px;
-        background: #f2f2f2;
-        border: 1px solid rgba(15, 23, 42, 0.06);
+        gap: 19px;
+        border-radius: 24px;
+        outline: 1px #E3E3E3 solid;
+        outline-offset: -1px;
+        background: #F7F7F7;
         color: inherit;
         text-decoration: none;
         transition:
           background-color 160ms ease,
-          border-color 160ms ease;
+          outline-color 160ms ease;
       }
 
       .case-pagination__link:hover,
       .case-pagination__link:focus-visible {
-        background: #efefef;
-        border-color: rgba(15, 23, 42, 0.1);
+        background: #FAFAFA;
+        outline-color: #EFEFEF;
       }
 
       .case-pagination__label {
@@ -493,9 +498,9 @@
       }
 
       .case-pagination__pill {
-        padding: 4px 12px;
+        padding: 6px 12px;
         border-radius: 999px;
-        background: rgba(15, 23, 42, 0.06);
+        background: #F0F0F0;
         color: #334155;
         font-size: 14px;
         font-weight: 500;
@@ -698,6 +703,9 @@
         }
 
         .media {
+          align-self: stretch;
+          width: 100%;
+          max-width: 100%;
           object-fit: contain;
           background: #f2f2f2;
           border-radius: 18px;
@@ -705,7 +713,7 @@
 
         .media--hero {
           height: auto;
-          aspect-ratio: 768 / 480;
+          aspect-ratio: 956 / 598;
           object-fit: cover;
           object-position: center;
           background: transparent;
@@ -713,7 +721,7 @@
 
         .media--large {
           height: auto;
-          aspect-ratio: 768 / 468;
+          aspect-ratio: 956 / 582;
           box-shadow: none;
         }
 
@@ -723,7 +731,7 @@
 
         .media--medium {
           height: auto;
-          aspect-ratio: 768 / 445;
+          aspect-ratio: 956 / 554;
         }
 
         .case-pagination {
@@ -747,8 +755,11 @@
 
         .case-pagination__link {
           padding: 20px 56px 20px 20px;
-          border-radius: 20px;
+          border-radius: 24px;
+        outline: 1px #E3E3E3 solid;
+        outline-offset: -1px;
           gap: 14px;
+        background: #F7F7F7;
         }
 
         .case-pagination__label {
@@ -861,7 +872,7 @@
           <p class="lead">Designed the&nbsp;core user flow of&nbsp;a taxi app: from&nbsp;finding a&nbsp;car to&nbsp;rating a&nbsp;completed ride. Built a&nbsp;clean screen structure so&nbsp;that at&nbsp;every stage of&nbsp;the trip the&nbsp;user clearly understands the&nbsp;status of&nbsp;their order.</p>
         </div>
 
-        <img class="media media--hero" src="./assets/goora-hero.png?v=20260527-1343" alt="Goora interface preview" width="768" height="480">
+        <img class="media media--hero" src="./assets/goora-hero.png?v=20260527-1343" alt="Goora interface preview" width="956" height="598">
 
         <div class="block">
           <h2 class="section-title">The task</h2>
@@ -879,7 +890,7 @@
               <h3 class="subheading">Main screen</h3>
               <p class="body-text">Order panel on&nbsp;the left, map on&nbsp;the right. Geolocation is&nbsp;detected automatically &mdash; approximate fare prices are visible even before an&nbsp;address is&nbsp;entered.</p>
             </div>
-            <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.png?v=20260529-raster" alt="Goora main screen" width="768" height="468">
+            <img class="media media--large media--goora-screen" src="./assets/goora-main-screen.svg?v=20260605-svg" alt="Goora main screen" width="956" height="582">
           </div>
         </div>
 
@@ -888,7 +899,7 @@
             <h3 class="subheading">Route input</h3>
             <p class="body-text">Before typing &mdash; quick actions: pin a&nbsp;point on&nbsp;the map or&nbsp;choose a&nbsp;saved address. Once you&nbsp;start typing, address suggestions come to&nbsp;the foreground and&nbsp;quick actions move down.</p>
           </div>
-          <img class="media media--medium" src="./assets/goora-route-input.png" alt="Goora route input" width="768" height="445">
+          <img class="media media--medium" src="./assets/goora-route-input.png" alt="Goora route input" width="956" height="554">
         </div>
 
         <div class="block">
@@ -897,7 +908,7 @@
             <p class="body-text">After selecting addresses &mdash; a&nbsp;composed order summary: route, fares, payment, bonuses, and&nbsp;price. The&nbsp;route is&nbsp;displayed on&nbsp;the map so&nbsp;you can&nbsp;visually verify the&nbsp;stops.</p>
             <p class="body-text">Multiple fares can&nbsp;be selected simultaneously. The&nbsp;price is&nbsp;shown as&nbsp;a range &mdash; the&nbsp;final cost depends on&nbsp;which driver accepts the&nbsp;order first.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.png?v=20260529-raster" alt="Goora trip setup" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-trip-setup.svg?v=20260605-svg" alt="Goora trip setup" width="956" height="582">
         </div>
 
         <div class="block">
@@ -905,7 +916,7 @@
             <h3 class="subheading">Searching for&nbsp;a driver</h3>
             <p class="body-text">A&nbsp;status bar shows that&nbsp;a search is&nbsp;in progress. The&nbsp;order collapses to&nbsp;its key parameters. The&nbsp;starting point is&nbsp;locked &mdash; the&nbsp;search has&nbsp;already begun &mdash; but&nbsp;the destination and&nbsp;stops can&nbsp;still be&nbsp;changed. The&nbsp;cancel button is&nbsp;accessible but&nbsp;does not&nbsp;compete for&nbsp;attention.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.png?v=20260529-raster" alt="Goora driver search" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-driver-search.svg?v=20260605-svg" alt="Goora driver search" width="956" height="582">
         </div>
 
         <div class="block">
@@ -913,7 +924,7 @@
             <h3 class="subheading">Driver found</h3>
             <p class="body-text">Focus shifts to&nbsp;the driver and&nbsp;arrival time. A&nbsp;card with&nbsp;name, rating, car, and&nbsp;plate number. Quick actions &mdash; call or&nbsp;message. Addresses are locked, the&nbsp;price range resolves to&nbsp;a final figure.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.png?v=20260529-raster" alt="Goora driver found state" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-driver-found.svg?v=20260605-svg" alt="Goora driver found state" width="956" height="582">
         </div>
 
         <div class="block">
@@ -921,7 +932,7 @@
             <h3 class="subheading">En route</h3>
             <p class="body-text">The&nbsp;status bar shows time remaining; the&nbsp;map tracks the&nbsp;car. All&nbsp;key information stays in&nbsp;the panel. At&nbsp;the bottom &mdash; a&nbsp;&quot;Report an&nbsp;issue&quot; button: unobtrusive but&nbsp;accessible.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.png?v=20260529-raster" alt="Goora ride in progress state" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-in-progress.svg?v=20260605-svg" alt="Goora ride in progress state" width="956" height="582">
         </div>
 
         <div class="block">
@@ -929,7 +940,7 @@
             <h3 class="subheading">Ride completion</h3>
             <p class="body-text">I&nbsp;kept only the&nbsp;essentials here: driver info, trip cost, rating, a&nbsp;comment field, and&nbsp;a submit-review button. Users can&nbsp;skip and&nbsp;start a&nbsp;new trip right away.</p>
           </div>
-          <img class="media media--large media--goora-screen" src="./assets/goora-finish.png?v=20260529-raster" alt="Goora ride completion" width="768" height="468">
+          <img class="media media--large media--goora-screen" src="./assets/goora-finish.svg?v=20260605-svg" alt="Goora ride completion" width="956" height="582">
         </div>
       </section>
 
