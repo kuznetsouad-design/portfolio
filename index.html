@@ -628,6 +628,10 @@
         display: none;
       }
 
+      .hero-break-narrow {
+        display: none;
+      }
+
       .project-card__header {
         align-self: stretch;
         display: flex !important;
@@ -749,6 +753,16 @@
 
         .hero-intro__title .hero-text-mobile .hero-break-mobile {
           display: block;
+        }
+
+        .hero-intro__title .hero-break-narrow {
+          display: block;
+        }
+
+        @media (min-width: 380px) {
+          .hero-intro__title .hero-break-narrow {
+            display: none;
+          }
         }
 
         .main-page__cases {
@@ -974,7 +988,7 @@
           <div class="avatar-meteors-zone">
             <img class="avatar-photo" src="./assets/avatar.png" alt="Аватар Аркадия" width="108" height="108" />
           </div>
-          <div class="hero-intro__title"><span class="hero-text-desktop">Привет, я Аркадий — продуктовый дизайнер,<br class="hero-break-desktop-primary" /> создаю интерфейсы<span class="hero-break-mobile"></span> с упором на бизнес‑задачи<br class="hero-break-force" />и удобство пользователя</span><span class="hero-text-mobile" data-nosnippet>Привет, я Аркадий — продуктовый дизайнер, создаю интерфейсы<br class="hero-break-mobile" />под задачи бизнеса и людей</span></div>
+          <div class="hero-intro__title"><span class="hero-text-desktop">Привет, я Аркадий — продуктовый дизайнер,<br class="hero-break-desktop-primary" /> создаю интерфейсы<span class="hero-break-mobile"></span> с упором на бизнес‑задачи<br class="hero-break-force" />и удобство пользователя</span><span class="hero-text-mobile" data-nosnippet>Привет, я Аркадий —<br class="hero-break-narrow" /> продуктовый дизайнер,<br class="hero-break-narrow" /> создаю интерфейсы<br class="hero-break-mobile" />под задачи бизнеса и людей</span></div>
         </div>
       </div>
       <div class="main-page__cases">
