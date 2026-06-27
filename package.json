@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "check:links": "node scripts/check-links.mjs"
+  }
+}
