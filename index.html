@@ -186,12 +186,6 @@
         isolation: isolate;
       }
 
-      @media (hover: none) and (pointer: coarse) {
-        .avatar-meteors-zone {
-          cursor: pointer;
-        }
-      }
-
       .hero-zone {
         position: relative;
         isolation: isolate;
@@ -234,25 +228,52 @@
         filter: blur(0);
       }
 
+      @property --avatar-hover-tilt {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 0deg;
+      }
+
+      @property --avatar-nudge-tilt {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 0deg;
+      }
+
       .avatar-photo {
+        --avatar-hover-tilt: 0deg;
+        --avatar-nudge-tilt: 0deg;
         position: relative;
         z-index: 2;
         width: 108px;
         height: 108px;
         border-radius: 24px;
         object-fit: cover;
-        will-change: transform;
+        translate: 0 0;
+        will-change: transform, translate;
         transform-origin: 50% 50%;
-        transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+        transform: rotate(calc(var(--avatar-hover-tilt) + var(--avatar-nudge-tilt)));
+        transition:
+          --avatar-hover-tilt 720ms cubic-bezier(0.22, 1, 0.36, 1),
+          translate 1600ms cubic-bezier(0.45, 0, 0.55, 1);
+        animation: avatar-float 1.35s ease-in-out infinite alternate;
       }
 
       .avatar-meteors-zone.is-avatar-idle-ready:not(.has-avatar-interacted) .avatar-photo {
-        animation: avatar-idle-nudge 5.1s ease-in-out infinite;
+        animation:
+          avatar-float 1.35s ease-in-out infinite alternate,
+          avatar-idle-nudge 5.1s ease-in-out infinite;
+      }
+
+      .avatar-meteors-zone.has-avatar-interacted .avatar-photo {
+        --avatar-nudge-tilt: 0deg;
+        animation: none;
+        translate: 0 0;
       }
 
       .avatar-meteors-zone.is-active .avatar-photo,
       .avatar-meteors-zone:focus-within .avatar-photo {
-        transform: rotate(3deg);
+        --avatar-hover-tilt: 3deg;
       }
 
       @keyframes avatar-idle-nudge {
@@ -263,13 +284,23 @@
         31.36%,
         39.2%,
         100% {
-          transform: rotate(0deg);
+          --avatar-nudge-tilt: 0deg;
         }
 
         3.92%,
         11.76%,
         19.6% {
-          transform: rotate(3deg);
+          --avatar-nudge-tilt: 3deg;
+        }
+      }
+
+      @keyframes avatar-float {
+        from {
+          translate: 0 0;
+        }
+
+        to {
+          translate: 0 -5px;
         }
       }
 
@@ -1099,11 +1130,16 @@
         const autoHideDelay = 4000;
         const fadeOutDelay = 900;
         const idleStartDelay = 2000;
+        const hoverSeenDelay = 100;
+        const avatarInteractionStorageKey = "portfolio:avatar-interacted-date";
+        const isLocalPreview = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
         let autoHideTimer = null;
         let fadeOutTimer = null;
         let idleStartTimer = null;
+        let hoverSeenTimer = null;
         let mobileBurstActive = false;
         let hasAvatarInteracted = false;
+        let hoverInterruptedIdle = false;
 
         if (prefersReducedMotion) {
           return;
@@ -1112,37 +1148,177 @@
         const isTouchMode = !supportsHover;
         const meteorCount = isTouchMode ? 30 : 42;
 
+        const getTodayKey = () => {
+          const now = new Date();
+          const year = now.getFullYear();
+          const month = String(now.getMonth() + 1).padStart(2, "0");
+          const day = String(now.getDate()).padStart(2, "0");
+
+          return `${year}-${month}-${day}`;
+        };
+
+        const wasAvatarInteractedToday = () => {
+          if (isLocalPreview) {
+            return false;
+          }
+
+          try {
+            return window.localStorage.getItem(avatarInteractionStorageKey) === getTodayKey();
+          } catch (error) {
+            return false;
+          }
+        };
+
+        const rememberAvatarInteractionToday = () => {
+          if (isLocalPreview) {
+            return;
+          }
+
+          try {
+            window.localStorage.setItem(avatarInteractionStorageKey, getTodayKey());
+          } catch (error) {}
+        };
+
+        const clearHoverSeenTimer = () => {
+          if (!hoverSeenTimer) {
+            return;
+          }
+
+          window.clearTimeout(hoverSeenTimer);
+          hoverSeenTimer = null;
+        };
+
+        const queueHoverSeen = () => {
+          if (hasAvatarInteracted || hoverSeenTimer) {
+            return;
+          }
+
+          hoverSeenTimer = window.setTimeout(() => {
+            hoverSeenTimer = null;
+            markAvatarInteracted();
+          }, hoverSeenDelay);
+        };
+
+        const queueIdleNudge = () => {
+          window.clearTimeout(idleStartTimer);
+
+          idleStartTimer = window.setTimeout(() => {
+            if (!hasAvatarInteracted) {
+              zone.classList.add("is-avatar-idle-ready");
+            }
+          }, idleStartDelay);
+        };
+
+        const getRotationAngle = (transform) => {
+          if (!transform || transform === "none") {
+            return 0;
+          }
+
+          const matrix2d = transform.match(/^matrix\(([^,]+),\s*([^,]+)/);
+
+          if (matrix2d) {
+            return Math.atan2(Number(matrix2d[2]), Number(matrix2d[1])) * (180 / Math.PI);
+          }
+
+          const matrix3d = transform.match(/^matrix3d\(([^)]+)\)/);
+
+          if (matrix3d) {
+            const values = matrix3d[1].split(",").map((value) => Number(value.trim()));
+            return Math.atan2(values[1], values[0]) * (180 / Math.PI);
+          }
+
+          return 0;
+        };
+
+        const prepareAvatarHover = () => {
+          if (hasAvatarInteracted) {
+            return;
+          }
+
+          const avatar = zone.querySelector(".avatar-photo");
+
+          if (!avatar) {
+            return;
+          }
+
+          const avatarStyle = window.getComputedStyle(avatar);
+          const currentTilt = getRotationAngle(avatarStyle.transform);
+          const currentInlineTransition = avatar.style.transition;
+          hoverInterruptedIdle = zone.classList.contains("is-avatar-idle-ready");
+
+          zone.classList.remove("is-avatar-idle-ready");
+          avatar.style.transition = "none";
+          avatar.style.setProperty("--avatar-hover-tilt", `${currentTilt.toFixed(3)}deg`);
+          avatar.style.setProperty("--avatar-nudge-tilt", "0deg");
+          avatar.getBoundingClientRect();
+
+          window.requestAnimationFrame(() => {
+            avatar.style.transition = currentInlineTransition;
+            avatar.getBoundingClientRect();
+
+            window.requestAnimationFrame(() => {
+              avatar.style.removeProperty("--avatar-hover-tilt");
+            });
+          });
+        };
+
+        const cancelAvatarHoverPreview = () => {
+          if (hasAvatarInteracted) {
+            return;
+          }
+
+          const avatar = zone.querySelector(".avatar-photo");
+
+          if (avatar) {
+            avatar.style.removeProperty("--avatar-hover-tilt");
+            avatar.style.removeProperty("--avatar-nudge-tilt");
+          }
+
+          if (hoverInterruptedIdle) {
+            queueIdleNudge();
+          }
+
+          hoverInterruptedIdle = false;
+        };
+
+        if (wasAvatarInteractedToday()) {
+          hasAvatarInteracted = true;
+          zone.classList.add("has-avatar-interacted");
+        }
+
         const markAvatarInteracted = () => {
           if (hasAvatarInteracted) {
             return;
           }
 
           hasAvatarInteracted = true;
+          clearHoverSeenTimer();
+          rememberAvatarInteractionToday();
           window.clearTimeout(idleStartTimer);
           zone.classList.remove("is-avatar-idle-ready");
 
           const avatar = zone.querySelector(".avatar-photo");
 
           if (avatar) {
-            const currentTransform = window.getComputedStyle(avatar).transform;
-            avatar.style.transform = currentTransform === "none" ? "rotate(0deg)" : currentTransform;
+            const avatarStyle = window.getComputedStyle(avatar);
+            const currentTranslate = avatarStyle.translate;
+            avatar.style.setProperty("--avatar-nudge-tilt", "0deg");
+            avatar.style.translate = currentTranslate === "none" ? "0 0" : currentTranslate;
           }
 
           zone.classList.add("has-avatar-interacted");
+          hoverInterruptedIdle = false;
 
           if (avatar) {
             avatar.getBoundingClientRect();
             window.requestAnimationFrame(() => {
-              avatar.style.transform = "";
+              avatar.style.removeProperty("--avatar-nudge-tilt");
+              avatar.style.translate = "";
             });
           }
         };
 
-        idleStartTimer = window.setTimeout(() => {
-          if (!hasAvatarInteracted) {
-            zone.classList.add("is-avatar-idle-ready");
-          }
-        }, idleStartDelay);
+        queueIdleNudge();
 
         const buildMeteors = () => {
           layer.innerHTML = "";
@@ -1218,10 +1394,15 @@
 
         if (supportsHover) {
           zone.addEventListener("mouseenter", () => {
-            markAvatarInteracted();
+            prepareAvatarHover();
+            queueHoverSeen();
             showMeteors();
           });
-          zone.addEventListener("mouseleave", hideMeteors);
+          zone.addEventListener("mouseleave", () => {
+            clearHoverSeenTimer();
+            cancelAvatarHoverPreview();
+            hideMeteors();
+          });
           zone.addEventListener("focusin", markAvatarInteracted);
         }
 
@@ -1361,14 +1542,3 @@
     <script src="/contact-links.js?v=20260528-email-copy"></script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
